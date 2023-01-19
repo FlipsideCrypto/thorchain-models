@@ -1,5 +1,12 @@
 {{ config(
   materialized = 'incremental',
+  meta={
+    'database_tags':{
+        'table': {
+            'PURPOSE': 'DEX, AMM, SWAPS'
+        }
+    }
+  },
   unique_key = 'fact_swaps_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']

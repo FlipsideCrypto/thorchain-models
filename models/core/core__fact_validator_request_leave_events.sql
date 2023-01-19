@@ -1,5 +1,12 @@
 {{ config(
   materialized = 'incremental',
+  meta={
+    'database_tags':{
+        'table': {
+            'PURPOSE': 'DEX, AMM'
+        }
+    }
+  },
   unique_key = 'fact_validator_request_leave_events_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
