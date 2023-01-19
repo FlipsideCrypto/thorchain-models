@@ -1,5 +1,12 @@
 {{ config(
   materialized = 'incremental',
+  meta={
+    'database_tags':{
+        'table': {
+            'PURPOSE': 'DEX, AMM'
+        }
+    }
+  },
   unique_key = 'fact_block_rewards_id',
   incremental_strategy = 'merge'
 ) }}

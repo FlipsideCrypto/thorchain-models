@@ -24,6 +24,8 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
+on-run-end:
+  - '{{ apply_meta_as_tags(results) }}'
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -39,6 +41,7 @@ models:
 
 vars:
   "dbt_date:time_zone": GMT
+  UPDATE_SNOWFLAKE_TAGS: true
 
   dbt_constraints_sources_enabled: true
 
