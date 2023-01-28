@@ -72,6 +72,10 @@ models:
         description: ""
       - name: DEPTH_PRODUCT
         description: ""
+      - name: SYNTH_UNITS
+        description: ""
+      - name: POOL_UNITS
+        description: ""
       - name: LIQUIDITY_UNIT_VALUE_INDEX
         description: ""
       - name: PREV_LIQUIDITY_UNIT_VALUE_INDEX
