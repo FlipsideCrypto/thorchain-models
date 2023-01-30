@@ -3,15 +3,14 @@ thorchain:
   outputs:
     dev:
       type: snowflake
-      account: vna27887.us-east-1
-      role: INTERNAL_DEV
-      user: KELLEN
-      password: Nolan2142!
-      region: us-east-1
-      database: thorchain_dev
-      warehouse: DBT_CLOUD
-      schema: bronze
-      query_tag: dbt_kellen
+      account: "{{ env_var('ACCOUNT') }}"
+      user: "{{ env_var('USER') }}"
+      password: "{{ env_var('PASSWORD') }}"
+      role: "{{ env_var('ROLE') }}"
+      schema: "{{ env_var('SCHEMA') }}"
+      region: "{{ env_var('REGION') }}"
+      database: "{{ env_var('DATABASE') }}"
+      warehouse: "{{ env_var('WAREHOUSE') }}"
       threads: 8
       client_session_keep_alive: False
     prod:
