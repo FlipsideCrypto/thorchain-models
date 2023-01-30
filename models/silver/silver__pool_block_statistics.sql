@@ -718,7 +718,7 @@ SELECT
   total_stake,
   depth_product,
   synth_units,
-  total_stake + synth_units AS pool_units
+  total_stake + synth_units AS pool_units,
   liquidity_unit_value_index,
   LAG(
     liquidity_unit_value_index,
