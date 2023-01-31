@@ -48,6 +48,8 @@ WITH base AS (
     withdraw_volume,
     total_stake,
     depth_product,
+    synth_units,
+    pool_units,
     liquidity_unit_value_index,
     prev_liquidity_unit_value_index,
     _UNIQUE_KEY
@@ -103,6 +105,8 @@ SELECT
   withdraw_volume,
   total_stake,
   depth_product,
+  synth_units,
+  pool_units,
   liquidity_unit_value_index,
   prev_liquidity_unit_value_index,
   '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id

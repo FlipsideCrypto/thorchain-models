@@ -103,3 +103,21 @@ models:
       - name: WITHDRAW_VOLUME
         tests:
           - not_null
+      - name: TOTAL_STAKE
+        tests:
+          - not_null
+      - name: DEPTH_PRODUCT
+        tests:
+          - not_null
+      - name: SYNTH_UNITS
+        tests:
+          - not_null
+      - name: POOL_UNITS
+        tests:
+          - not_null
+      - name: LIQUIDITY_UNIT_VALUE_INDEX
+        tests:
+          - not_null
+      - name: PREV_LIQUIDITY_UNIT_VALUE_INDEX
+        tests:
+          - not_null
