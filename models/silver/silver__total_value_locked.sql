@@ -80,6 +80,7 @@ total_pool_depth AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
+  WHERE LOWER(pool_name) NOT LIKE 'thor.%'
 
 {% if is_incremental() %}
 WHERE
