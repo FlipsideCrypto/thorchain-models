@@ -1,12 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta={
-    'database_tags':{
-        'table': {
-            'PURPOSE': 'DEX, AMM'
-        }
-    }
-  },
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
   unique_key = 'fact_pool_block_balances_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
@@ -41,7 +35,7 @@ WHERE
 {% endif %}
 )
 SELECT
-  {{ dbt_utils.surrogate_key(
+  {{ dbt_utils.generate_surrogate_key(
     ['a._unique_key']
   ) }} AS fact_pool_block_balances_id,
   b.block_timestamp,

@@ -1,12 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta={
-    'database_tags':{
-        'table': {
-            'PURPOSE': 'DEX, AMM'
-        }
-    }
-  },
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
   unique_key = "fact_bond_actions_id",
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
@@ -60,7 +54,7 @@ WHERE
 {% endif %}
 )
 SELECT
-  {{ dbt_utils.surrogate_key(
+  {{ dbt_utils.generate_surrogate_key(
     ['be.tx_id','be.from_address','be.to_address ','be.asset_e8','be.bond_type','be.e8','be.block_timestamp','be.blockchain','be.asset','be.memo']
   ) }} AS fact_bond_actions_id,
   b.block_timestamp,

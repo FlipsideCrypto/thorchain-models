@@ -6,7 +6,7 @@
 ) }}
 
 SELECT
-    {{ dbt_utils.surrogate_key(
+    {{ dbt_utils.generate_surrogate_key(
         ['height']
     ) }} AS dim_block_id,
     height AS block_id,

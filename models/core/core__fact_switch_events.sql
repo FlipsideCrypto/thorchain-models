@@ -1,12 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta={
-    'database_tags':{
-        'table': {
-            'PURPOSE': 'DEX, AMM'
-        }
-    }
-  },
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
   unique_key = 'fact_switch_events_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
@@ -40,7 +34,7 @@ WHERE
 {% endif %}
 )
 SELECT
-  {{ dbt_utils.surrogate_key(
+  {{ dbt_utils.generate_surrogate_key(
     ['a.event_id','a.tx_id','from_address','a.to_address','a.burn_asset','a.burn_e8','a.mint_e8']
   ) }} AS fact_switch_events_id,
   b.block_timestamp,

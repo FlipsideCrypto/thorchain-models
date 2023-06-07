@@ -1,12 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta={
-    'database_tags':{
-        'table': {
-            'PURPOSE': 'DEX, AMM'
-        }
-    }
-  },
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
   unique_key = 'fact_refund_events_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
@@ -45,7 +39,7 @@ WHERE
 {% endif %}
 )
 SELECT
-  {{ dbt_utils.surrogate_key(
+  {{ dbt_utils.generate_surrogate_key(
     ['a.event_id','a.tx_id','a.blockchain','a.from_address' ,'a.to_address','a. asset', 'a.asset_2nd', 'a.memo', 'a.code', 'a.reason', 'a.block_timestamp']
   ) }} AS fact_refund_events_id,
   b.block_timestamp,

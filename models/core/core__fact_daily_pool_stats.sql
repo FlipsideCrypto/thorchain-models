@@ -1,12 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta={
-    'database_tags':{
-        'table': {
-            'PURPOSE': 'DEX, AMM'
-        }
-    }
-  },
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
   unique_key = 'fact_daily_pool_stats_id',
   incremental_strategy = 'merge',
   cluster_by = ['day']
@@ -71,7 +65,7 @@ WHERE
 {% endif %}
 )
 SELECT
-  {{ dbt_utils.surrogate_key(
+  {{ dbt_utils.generate_surrogate_key(
     ['a.day','a.pool_name']
   ) }} AS fact_daily_pool_stats_id,
   DAY,

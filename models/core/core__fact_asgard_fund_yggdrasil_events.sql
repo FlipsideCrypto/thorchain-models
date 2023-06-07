@@ -1,12 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta={
-    'database_tags':{
-        'table': {
-            'PURPOSE': 'DEX, AMM'
-        }
-    }
-  },
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
   unique_key = 'fact_asgard_fund_yggdrasil_events_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
@@ -46,7 +40,7 @@ WHERE
 {% endif %}
 )
 SELECT
-  {{ dbt_utils.surrogate_key(
+  {{ dbt_utils.generate_surrogate_key(
     ['a.event_id','a.tx_id','a.asset ','a.asset_e8','a.vault_key','a.block_timestamp']
   ) }} AS fact_asgard_fund_yggdrasil_events_id,
   b.block_timestamp,

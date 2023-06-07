@@ -1,12 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta={
-    'database_tags':{
-        'table': {
-            'PURPOSE': 'DEX, AMM'
-        }
-    }
-  },
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
   unique_key = 'fact_update_node_account_status_events_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
@@ -36,7 +30,7 @@ WHERE
 {% endif %}
 )
 SELECT
-  {{ dbt_utils.surrogate_key(
+  {{ dbt_utils.generate_surrogate_key(
     ['a.node_address', 'a.block_timestamp', 'a.current_status', 'a.former_status']
   ) }} AS fact_update_node_account_status_events_id,
   b.block_timestamp,

@@ -1,12 +1,6 @@
 {{ config(
   materialized = 'view',
-  meta={
-    'database_tags':{
-        'table': {
-            'PURPOSE': 'DEX, AMM'
-        }
-    }
-  }
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}}
 ) }}
 
 WITH base AS (
@@ -34,7 +28,7 @@ WHERE
 {% endif %}
 )
 SELECT
-  {{ dbt_utils.surrogate_key(
+  {{ dbt_utils.generate_surrogate_key(
     ['a.event_id','a.pool_name','a.asset']
   ) }} AS fact_slash_amounts_id,
   b.block_timestamp,
