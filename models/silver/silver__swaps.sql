@@ -60,21 +60,11 @@ SELECT
   blockchain,
   se.pool_name,
   from_address,
-  CASE
-    WHEN n_tx > 1
-    AND rank_liq_fee = 1
-    AND SPLIT(
-      memo,
-      ':'
-    ) [4] :: STRING IS NOT NULL THEN SPLIT(
-      memo,
-      ':'
-    ) [4] :: STRING
-    ELSE SPLIT(
+  SPLIT(
       memo,
       ':'
     ) [2] :: STRING
-  END AS native_to_address,
+  AS native_to_address,
   to_address AS to_pool_address,
   CASE
     WHEN COALESCE(SPLIT(memo, ':') [4], '') = '' THEN NULL
