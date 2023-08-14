@@ -49,12 +49,6 @@ sources:
       - name: midgard_update_node_account_status_events
       - name: midgard_validator_request_leave_events
       - name: midgard_withdraw_events
-  - name: thorchain_midgard_missing_data
-    database: HEVO
-    schema: THORCHAIN_MIDGARD_2_10_MISSING_DATA
-    tables:
-      - name: midgard_transfer_events
-      - name: midgard_fee_events
   - name: crosschain
     database: flipside_prod_db
     schema: silver_crosschain
