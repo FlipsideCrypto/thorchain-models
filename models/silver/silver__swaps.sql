@@ -63,13 +63,14 @@ SELECT
   CASE
     WHEN n_tx > 1
     AND rank_liq_fee = 1
-    AND SPLIT(
-      memo,
-      ':'
-    ) [4] :: STRING IS NOT NULL THEN SPLIT(
+    AND len(SPLIT(memo, ':') [4] :: STRING) = 43 THEN SPLIT(
       memo,
       ':'
     ) [4] :: STRING
+    WHEN n_tx > 1
+    AND LOWER(LEFT(memo, 1)) IN ('s', '=')
+    AND len(COALESCE( SPLIT(memo, ':') [2] :: STRING, '')) = 0
+    THEN from_address
     ELSE SPLIT(
       memo,
       ':'
