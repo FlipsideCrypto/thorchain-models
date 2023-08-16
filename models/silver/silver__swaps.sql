@@ -67,6 +67,10 @@ SELECT
       memo,
       ':'
     ) [4] :: STRING
+    WHEN n_tx > 1
+    AND LOWER(LEFT(memo, 1)) IN ('s', '=')
+    AND len(COALESCE( SPLIT(memo, ':') [2] :: STRING, '')) = 0
+    THEN from_address
     ELSE SPLIT(
       memo,
       ':'
