@@ -52,7 +52,7 @@ sources:
       - name: midgard_validator_request_leave_events
       - name: midgard_withdraw_events
   - name: crosschain
-    database: flipside_prod_db
-    schema: silver_crosschain
+    database: "{{ 'crosschain' if target.database == 'THORCHAIN' else 'crosschain_dev' }}"
+    schema: core
     tables:
       - name: address_labels
