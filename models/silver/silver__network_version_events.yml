@@ -1,0 +1,17 @@
+version: 2
+models:
+  - name: silver__network_version_events
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - EVENT_ID
+    columns:
+      - name: VERSION
+        tests:
+          - not_null
+      - name: EVENT_ID
+        tests:
+          - not_null
+      - name: BLOCK_TIMESTAMP
+        tests:
+          - not_null

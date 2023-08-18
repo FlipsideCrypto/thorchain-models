@@ -1,18 +1,19 @@
 {{ config(
-  materialized = 'view'
+  materialized = 'view',
+  enabled = false
 ) }}
 
 SELECT
-  tx as tx_id,
-  chain as blockchain,
-  from_addr as from_address,
-  to_addr as to_address,
+  tx AS tx_id,
+  chain AS blockchain,
+  from_addr AS from_address,
+  to_addr AS to_address,
   asset,
   asset_e8,
   emit_asset_e8,
   emit_rune_e8,
   memo,
-  pool as pool_name,
+  pool AS pool_name,
   stake_units,
   basis_points,
   asymmetry,
@@ -25,7 +26,6 @@ SELECT
     __HEVO__LOADED_AT,
     '1970-01-01'
   ) AS _INSERTED_TIMESTAMP
-
 FROM
   {{ ref(
     'bronze__unstake_events'
