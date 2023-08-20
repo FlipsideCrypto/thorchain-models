@@ -8,19 +8,19 @@
 WITH summary_stats AS (
 
     SELECT
-      MIN(block_number) AS min_block,
-      MAX(block_number) AS max_block,
+      MIN(height) AS min_block,
+      MAX(height) AS max_block,
       MIN(block_timestamp) AS min_block_timestamp,
       MAX(block_timestamp) AS max_block_timestamp,
       COUNT(1) AS blocks_tested
-    FROM {{ ref('silver__blocks') }}
+    FROM {{ ref('silver__block_log') }}
     WHERE block_timestamp <= DATEADD('hour', -12, CURRENT_TIMESTAMP())
 
 
 {% if is_incremental() %}
 AND (block_number >= (SELECT MIN(block_number) 
-                      FROM ( SELECT MIN(block_number) AS block_number 
-                             FROM {{ ref('silver__blocks') }} 
+                      FROM ( SELECT MIN(height) AS block_number 
+                             FROM {{ ref('silver__block_log') }} 
                              WHERE block_timestamp BETWEEN DATEADD('hour', -96, CURRENT_TIMESTAMP())
                                AND DATEADD('hour', -95, CURRENT_TIMESTAMP())
                              
@@ -47,6 +47,37 @@ block_range AS (
     WHERE _id BETWEEN (SELECT min_block FROM summary_stats )
       AND (SELECT max_block FROM summary_stats)
 
+),
+
+base_blocks AS (
+
+    SELECT
+      *
+    FROM {{ ref('silver__blocks') }}
+    WHERE block_id BETWEEN ( SELECT min_block FROM summary_stats )
+      AND (SELECT max_block FROM summary_stats)
+
+),
+
+base_txs AS (
+    SELECT
+      block_id,
+      tx_id
+    FROM {{ ref('silver__swaps') }}
+    WHERE block_id BETWEEN (SELECT min_block FROM summary_stats)
+      AND (SELECT max_block FROM summary_stats)
+
+),
+
+potential_missing_txs AS (
+    SELECT
+      base_blocks.*
+    FROM base_blocks
+    
+    LEFT OUTER JOIN base_txs
+      ON base_blocks.block_id = base_txs.block_id
+    
+    WHERE base_txs.block_id IS NULL
 ),
 
 broken_blocks AS (
@@ -77,6 +108,7 @@ impacted_blocks AS (
     FROM broken_blocks
 
 )
+
 
 SELECT
   'transactions' AS test_name,
