@@ -8,7 +8,7 @@ sources:
       - name: prices_v2
   - name: thorchain_midgard
     database: HEVO
-    schema: THORCHAIN_MIDGARD_2_10
+    schema: THORCHAIN_MIDGARD_2_16
     tables:
       - name: midgard_active_vault_events
       - name: midgard_add_events
@@ -24,6 +24,8 @@ sources:
       - name: midgard_gas_events
       - name: midgard_inactive_vault_events
       - name: midgard_message_events
+      - name: midgard_mint_burn_events
+      - name: midgard_network_version_events
       - name: midgard_new_node_events
       - name: midgard_outbound_events
       - name: midgard_pending_liquidity_events
@@ -50,7 +52,7 @@ sources:
       - name: midgard_validator_request_leave_events
       - name: midgard_withdraw_events
   - name: crosschain
-    database: flipside_prod_db
-    schema: silver_crosschain
+    database: "{{ 'crosschain' if target.database == 'THORCHAIN' else 'crosschain_dev' }}"
+    schema: core
     tables:
       - name: address_labels

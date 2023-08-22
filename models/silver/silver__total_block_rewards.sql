@@ -14,29 +14,30 @@ WITH block_prices AS (
     {{ ref('silver__prices') }}
   GROUP BY
     block_id
-)
-SELECT
-  b.block_timestamp,
-  b.height AS block_id,
-  ree.pool_name AS reward_entity,
-  COALESCE(rune_e8 / pow(10, 8), 0) AS rune_amount,
-  COALESCE(rune_e8 / pow(10, 8) * rune_usd, 0) AS rune_amount_usd,
-  concat_ws(
-    '-',
-    b.height,
-    reward_entity
-  ) AS _unique_key,
-  ree._inserted_timestamp
-FROM
-  {{ ref('silver__rewards_event_entries') }}
-  ree
-  JOIN {{ ref('silver__block_log') }}
-  b
-  ON ree.block_timestamp = b.timestamp
-  LEFT JOIN {{ ref('silver__prices') }}
-  p
-  ON b.height = p.block_id
-  AND ree.pool_name = p.pool_name
+),
+fin AS (
+  SELECT
+    b.block_timestamp,
+    b.height AS block_id,
+    ree.pool_name AS reward_entity,
+    COALESCE(rune_e8 / pow(10, 8), 0) AS rune_amount,
+    COALESCE(rune_e8 / pow(10, 8) * rune_usd, 0) AS rune_amount_usd,
+    concat_ws(
+      '-',
+      b.height,
+      reward_entity
+    ) AS _unique_key,
+    ree._inserted_timestamp
+  FROM
+    {{ ref('silver__rewards_event_entries') }}
+    ree
+    JOIN {{ ref('silver__block_log') }}
+    b
+    ON ree.block_timestamp = b.timestamp
+    LEFT JOIN {{ ref('silver__prices') }}
+    p
+    ON b.height = p.block_id
+    AND ree.pool_name = p.pool_name
 
 {% if is_incremental() %}
 WHERE
@@ -116,3 +117,21 @@ WHERE
     )
   )
 {% endif %}
+)
+SELECT
+  block_timestamp,
+  block_id,
+  reward_entity,
+  SUM(
+    rune_amount
+  ) AS rune_amount,
+  SUM(rune_amount_usd) AS rune_amount_usd,
+  _unique_key,
+  MAX(_inserted_timestamp) AS _inserted_timestamp
+FROM
+  fin
+GROUP BY
+  block_timestamp,
+  block_id,
+  reward_entity,
+  _unique_key

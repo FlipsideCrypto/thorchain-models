@@ -3,9 +3,11 @@
 ) }}
 
 SELECT
-  node_addr,
-  "CURRENT" AS current_flag,
-  former,
+  asset,
+  asset_e8,
+  supply,
+  reason,
+  event_id,
   block_timestamp,
   __HEVO__DATABASE_NAME,
   __HEVO__SCHEMA_NAME,
@@ -14,5 +16,5 @@ SELECT
 FROM
   {{ source(
     'thorchain_midgard',
-    'midgard_update_node_account_status_events'
+    'midgard_mint_burn_events'
   ) }}
