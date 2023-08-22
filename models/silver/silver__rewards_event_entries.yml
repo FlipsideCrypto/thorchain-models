@@ -6,6 +6,7 @@ models:
           combination_of_columns:
             - BLOCK_TIMESTAMP
             - POOL_NAME
+            - EVENT_ID
     columns:
       - name: BLOCK_TIMESTAMP
         tests:
