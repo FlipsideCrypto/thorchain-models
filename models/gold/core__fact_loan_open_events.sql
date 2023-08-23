@@ -19,7 +19,7 @@ WITH base AS (
     block_timestamp,
     _INSERTED_TIMESTAMP
   FROM
-    {{ ref('silver__mint_burn_events') }}
+    {{ ref('silver__loan_open_events') }}
 
 {% if is_incremental() %}
 WHERE
