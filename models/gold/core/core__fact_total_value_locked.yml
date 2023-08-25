@@ -1,0 +1,15 @@
+version: 2
+models:
+  - name: core__fact_total_value_locked
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_total_value_locked. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_TOTAL_VALUE_LOCKED_ID
+        description: "{{ doc('sk') }}" 
+      - name: DAY
+        description: "The timestamp in day for the recorded of the block fee" 
+      - name: TOTAL_VALUE_POOLED
+        description: "The total amount of rune provided by the liquidity provides and pooled in the pool"
+      - name: TOTAL_VALUE_BONDED
+        description: "The total amount of rune provided by the node operators and bonded in the pool"
+      - name: TOTAL_VALUE_LOCKED
+        description: "The total rune value locked in the pool"

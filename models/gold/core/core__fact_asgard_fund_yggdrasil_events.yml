@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: core__fact_asgard_fund_yggdrasil_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_asgard_fund_yggdrasil_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_ASGARD_FUND_YGGDRASIL_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: ASSET
+        description: "{{ doc('asset') }}"
+      - name: TX_ID
+        description: "{{ doc('tx_id') }}"
+      - name: VAULT_KEY
+        description: ""
+      - name: ASSET_E8

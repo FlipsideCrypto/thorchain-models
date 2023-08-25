@@ -1,0 +1,25 @@
+version: 2
+models:
+  - name: core__fact_loan_open_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_asgact_loan_open_eventsard_fund_yggdrasil_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_LOAN_OPEN_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: owner
+        description: "The loan owner"
+      - name: collateral_up
+        description: "The collateral amount"
+      - name: debt_up
+        description: "The debt amount"
+      - name: collateralization_ratio
+        description: "The collateralization ratio"
+      - name: collateral_asset
+        description: "The collateralization asset"
+      - name: target_asset
+        description: "The target asset" 
+      - name: EVENT_ID
+        description: ""

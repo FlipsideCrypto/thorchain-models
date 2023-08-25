@@ -1,0 +1,31 @@
+version: 2
+models:
+  - name: core__fact_stake_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_stake_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_STAKE_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: POOL_NAME
+        description: "{{ doc('pool_name') }}" 
+      - name: ASSET_TX_ID
+        description: "{{ doc('tx_id') }}"
+      - name: ASSET_BLOCKCHAIN
+        description: "{{ doc('blockchain') }}"
+      - name: ASSET_ADDRESS
+        description: "{{ doc('address') }}"
+      - name: ASSET_E8
+        description: "The asset amount for this event"
+      - name: STAKE_UNITS
+        description: ""
+      - name: RUNE_TX_ID
+        description: "{{ doc('tx_id') }}"
+      - name: RUNE_ADDRESS
+        description: "{{ doc('address') }}"
+      - name: RUNE_E8
+        description: "The asset amount for this event"
+      - name: _ASSET_IN_RUNE_E8
+        description: ""

@@ -1,0 +1,27 @@
+version: 2
+models:
+  - name: core__fact_outbound_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_outbound_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_OUTBOUND_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: TX_ID
+        description: "{{ doc('tx_id') }}"
+      - name: BLOCKCHAIN
+        description: "{{ doc('blockchain') }}"
+      - name: FROM_ADDRESS
+        description: "{{ doc('from_address') }}"
+      - name: TO_ADDRESS
+        description: "{{ doc('to_address') }}"
+      - name: ASSET
+        description: "Same as pool name, which pool this outbound event happens"
+      - name: ASSET_E8
+        description: "The asset amount for this outbound event, using the price table we can calculate the rune amount by asset amount"
+      - name: MEMO
+        description: "{{ doc('memo') }}"
+      - name: IN_TX
+        description: ""

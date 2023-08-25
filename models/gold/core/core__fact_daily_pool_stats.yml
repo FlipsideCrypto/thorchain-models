@@ -1,0 +1,86 @@
+version: 2
+models:
+  - name: core__fact_daily_pool_stats
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_daily_pool_stats. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_DAILY_POOL_STATS_ID
+        description: "{{ doc('sk') }}"
+      - name: DAY
+        description: "{{ doc('tx_id') }}"
+      - name: POOL_NAME
+        description: "{{ doc('pool_name') }}"
+      - name: SYSTEM_REWARDS
+        description: "The total daily system rewards in RUNE to the pool"
+      - name: SYSTEM_REWARDS_USD
+        description: "The total daily system rewards in USD to the pool"
+      - name: ASSET_LIQUIDITY
+        description: "The total asset liquidity for this pool"
+      - name: ASSET_PRICE
+        description: "Current asset price"
+      - name: ASSET_PRICE_USD
+        description: "Current asset price in USD"
+      - name: RUNE_LIQUIDITY
+        description: "The total RUNE liquidity for this pool"
+      - name: RUNE_PRICE
+        description: "Current RUNE price"
+      - name: RUNE_PRICE_USD
+        description: "Current RUNE price in USD"
+      - name: ADD_LIQUIDITY_COUNT
+        description: "How many times to add liquidity to the pool"
+      - name: ADD_ASSET_LIQUIDITY
+        description: "The total amount of asset liquidity added to the pool"
+      - name: ADD_ASSET_LIQUIDITY_USD
+        description: "The total amount in usd of asset liquidity added to the pool"
+      - name: ADD_RUNE_LIQUIDITY
+        description: "The total amount of RUNE liquidity added to the pool"
+      - name: ADD_RUNE_LIQUIDITY_USD
+        description: "The total amount in usd of RUNE liquidity added to the pool"
+      - name: WITHDRAW_COUNT
+        description: "Time to withdraw from the pool"
+      - name: WITHDRAW_ASSET_LIQUIDITY
+        description: "The total amount of asset withdrawn from the pool"
+      - name: WITHDRAW_ASSET_LIQUIDITY_USD
+        description: "The total amount in USD of asset withdrawn from the pool"
+      - name: WITHDRAW_RUNE_LIQUIDITY
+        description: "The total amount of RUNE withdrawn from the pool"
+      - name: WITHDRAW_RUNE_LIQUIDITY_USD
+        description: "The total amount in USD of RUNE withdrawn from the pool"
+      - name: IL_PROTECTION_PAID
+        description: "Impermanent loss protection cost paid to the network"
+      - name: IL_PROTECTION_PAID_USD
+        description: "Impermanent loss protection cost in USD paid to the network"
+      - name: AVERAGE_SLIP
+        description: "Average slippage "
+      - name: TO_ASSET_AVERAGE_SLIP
+        description: "When swap from RUNE to Asset, the average slippage"
+      - name: TO_RUNE_AVERAGE_SLIP
+        description: "When swap from Asset to RUNE, the average slippage"
+      - name: SWAP_COUNT
+        description: "Total number of swaps"
+      - name: TO_ASSET_SWAP_COUNT
+        description: "Total number of swaps from RUNE TO Asset"
+      - name: TO_RUNE_SWAP_COUNT
+        description: "Total number of swaps from Asset TO RUNE"
+      - name: SWAP_VOLUME_RUNE
+        description: "The swap amount of RUNE"
+      - name: SWAP_VOLUME_RUNE_USD
+        description: "The swap amount of RUNE in USD"
+      - name: TO_ASSET_SWAP_VOLUME
+        description: "The swap volume from RUNE to Asset"
+      - name: TO_RUNE_SWAP_VOLUME
+        description: "The swap volume from Asset to RUNE"
+      - name: TOTAL_SWAP_FEES_RUNE
+        description: "Total swap fees in RUNE"
+      - name: TOTAL_SWAP_FEES_USD
+        description: "Total swap fees in USD"
+      - name: TOTAL_ASSET_SWAP_FEES
+        description: "Total asset swap fees in asset"
+      - name: TOTAL_ASSET_RUNE_FEES
+        description: "Total asset swap fees in RUNE"
+      - name: UNIQUE_MEMBER_COUNT
+        description: "All memberships with a rune address. Take the member from rune and asset and then subtract the balance = 0 then get the results"
+      - name: UNIQUE_SWAPPER_COUNT
+        description: "The unique swap address for this pool"
+      - name: LIQUIDITY_UNITS
+        description: "The amount of units for the liquidity in the pool"
+ 

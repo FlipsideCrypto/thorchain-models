@@ -1,0 +1,25 @@
+version: 2
+models:
+  - name: core__fact_upgrades
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_upgrades. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_UPGRADES_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: TX_ID
+        description: "{{ doc('tx_id') }}"
+      - name: FROM_ADDRESS
+        description: "The address initiated this transfers"
+      - name: TO_ADDRESS
+        description: "The address received this transfers"
+      - name: BURN_ASSET
+        description: "The burned asset"  
+      - name: RUNE_AMOUNT
+        description: "The transferred RUNE amount"  
+      - name: RUNE_AMOUNT_USD
+        description: "The transferred RUNE amount in USD"
+      - name: MINT_AMOUNT
+        description: "The minted RUNE amount"
+      - name: MINT_AMOUNT_USD
+        description: "The minted RUNE amount in USD"

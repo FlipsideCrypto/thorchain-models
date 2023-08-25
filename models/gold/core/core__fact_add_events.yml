@@ -1,0 +1,22 @@
+version: 2
+models:
+  - name: core__fact_add_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_add_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_ADD_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: RUNE_E8
+        description: "The amount of rune for this add event"
+      - name: BLOCKCHAIN
+        description: "{{ doc('blockchain') }}"
+      - name: ASSET_E8
+        description: "{{ doc('pool_name') }}"
+      - name: MEMO
+        description: "{{ doc('memo') }}"
+        description: "{{ doc('to_address') }}"
+      - name: FROM_ADDRESS
+        description: "{{ doc('from_address') }}"

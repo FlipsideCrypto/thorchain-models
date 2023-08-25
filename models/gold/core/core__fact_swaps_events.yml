@@ -1,0 +1,41 @@
+version: 2
+models:
+  - name: core__fact_swaps_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_swaps_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_SWAP_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: TX_ID
+        description: "{{ doc('tx_id') }}"
+      - name: BLOCKCHAIN
+        description: "{{ doc('blockchain') }}"
+      - name: FROM_ADDRESS
+        description: "The user address that initiates the swap"
+      - name: TO_ADDRESS
+        description: "The address we are swapping to"
+      - name: FROM_ASSET
+        description: "The asset we are swapping from"
+      - name: FROM_E8
+        description: "The amount we are swapping from"
+      - name: TO_ASSET
+        description: "The asset we are swapping to"
+      - name: TO_E8
+        description: "The asset amount we are swapping for (divide by 10^8 to get the decimal amount)"
+      - name: MEMO
+        description: "The transaction memo"
+      - name: POOL_NAME
+        description: "The name of the pool"
+      - name: TO_E8_MIN
+        description: "The minimum amount the swapper will receive"
+      - name: SWAP_SLIP_BP
+        description: "The slippage"
+      - name: LIQ_FEE_E8
+        description: "The fee (divide by 10^8 to get the decimal amount)"
+      - name: LIQ_FEE_IN_RUNE_E8
+        description: "The fee in RUNE (divide by 10^8 to get the decimal amount)"
+      - name: _DIRECTION
+        description: ""

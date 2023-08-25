@@ -1,0 +1,25 @@
+version: 2
+models:
+  - name: core__fact_pool_block_balances
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_pool_block_balances. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_POOL_BLOCK_BALANCES_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: POOL_NAME
+        description: "{{ doc('pool_name') }}"
+      - name: RUNE_AMOUNT
+        description: "The rune amount balance for this pool name"
+      - name: RUNE_AMOUNT_USD
+        description: "The rune amount balance in USD for this pool name"
+      - name: ASSET_AMOUNT
+        description: "The asset amount balance for this pool name"
+      - name: ASSET_AMOUNT_USD
+        description: "The asset amount balance in USD for this pool name"
+      - name: SYNTH_AMOUNT
+        description: "The synth amount balance for this pool name"
+      - name: SYNTH_AMOUNT_USD
+        description: "The synth amount balance in USD for this pool name"

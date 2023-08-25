@@ -1,0 +1,21 @@
+version: 2
+models:
+  - name: core__fact_mint_burn_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_mint_burn_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_MINT_BURN_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: ASSET
+        description: "{{ doc('asset') }}"
+      - name: ASSET_E8
+        description: "The asset amount for this mint/burn, using the price table we can calculate the rune amount by asset amount"
+      - name: SUPPLY
+        description: "The mint or burn action"
+      - name: REASON
+        description: "The reason for the mint or burn action"
+      - name: EVENT_ID
+        description: ""

@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: core__fact_block_pool_depths
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.act_block_pool_depths. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_POOL_DEPTHS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: RUNE_E8
+        description: "The rune depth for this pool at this block"
+      - name: ASSET_E8
+        description: "The asset depth for this pool at this block"
+      - name: SYNTH_E8
+        description: ""
+      - name: POOL_NAME
+        description: "{{ doc('pool_name') }}"
