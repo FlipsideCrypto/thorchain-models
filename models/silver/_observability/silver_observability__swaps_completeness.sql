@@ -41,62 +41,28 @@ AND (block_number >= (SELECT MIN(block_number)
 
 block_range AS (
 
-    SELECT 
+    SELECT
       _id AS block_number
-    FROM {{ source('crosschain_silver','number_sequence') }}
-    WHERE _id BETWEEN (SELECT min_block FROM summary_stats )
+    FROM {{ source( 'crosschain_silver', 'number_sequence' ) }}
+    WHERE _id BETWEEN ( SELECT min_block FROM summary_stats)
       AND (SELECT max_block FROM summary_stats)
 
-),
-
-base_blocks AS (
-
-    SELECT
-      *
-    FROM {{ ref('silver__blocks') }}
-    WHERE block_id BETWEEN ( SELECT min_block FROM summary_stats )
-      AND (SELECT max_block FROM summary_stats)
-
-),
-
-base_txs AS (
-    SELECT
-      block_id,
-      tx_id
-    FROM {{ ref('silver__swaps') }}
-    WHERE block_id BETWEEN (SELECT min_block FROM summary_stats)
-      AND (SELECT max_block FROM summary_stats)
-
-),
-
-potential_missing_txs AS (
-    SELECT
-      base_blocks.*
-    FROM base_blocks
-    
-    LEFT OUTER JOIN base_txs
-      ON base_blocks.block_id = base_txs.block_id
-    
-    WHERE base_txs.block_id IS NULL
 ),
 
 broken_blocks AS (
 
     SELECT 
-      DISTINCT block_number
-    FROM {{ ref("silver__confirmed_blocks") }} b
-
-    LEFT JOIN {{ ref("silver__transactions") }} t 
-    USING (
-            block_number,
-            tx_hash,
-            block_hash
-          )
+      DISTINCT height
+    FROM {{ ref("silver__block_log") }} b
+        
+    LEFT JOIN {{ ref("silver__swaps") }} t 
+      ON b.height = t.block_id
     
-    JOIN block_range 
-    USING (block_number)
+    JOIN block_range br
+      ON b.height = br.block_number
+      AND t.block_id = br.block_number
     
-    WHERE t.tx_hash IS NULL
+    WHERE t.tx_id IS NULL
 
 ),
 
@@ -104,11 +70,10 @@ impacted_blocks AS (
 
     SELECT
       COUNT(1) AS blocks_impacted_count,
-      ARRAY_AGG(block_number) within GROUP ( ORDER BY block_number ) AS blocks_impacted_array
+      ARRAY_AGG(block_number) within GROUP (ORDER BY block_number ) AS blocks_impacted_array
     FROM broken_blocks
 
 )
-
 
 SELECT
   'transactions' AS test_name,
