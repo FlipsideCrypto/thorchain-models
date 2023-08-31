@@ -56,4 +56,4 @@ sources:
     database: "{{ 'crosschain' if target.database == 'THORCHAIN' else 'crosschain_dev' }}"
     schema: core
     tables:
-      - name: address_labels
+      - name: dim_address_labels
