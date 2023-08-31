@@ -1,0 +1,13 @@
+version: 2
+models:
+  - name: core__fact_active_vault_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_active_vault_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_ACTIVE_VAULT_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: ADD_ASGARD_ADDR
+        description: "The asgard address added to the vault"

@@ -1,0 +1,23 @@
+version: 2
+models:
+  - name: core__fact_switch_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_switch_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_SWITCH_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: TX_ID
+        description: "{{ doc('tx_id') }}"
+      - name: FROM_ADDRESS
+        description: "{{ doc('address') }}"
+      - name: TO_ADDRESS
+        description: "{{ doc('address') }}"
+      - name: BURN_ASSET
+        description: "{{ doc('asset') }}"
+      - name: BURN_E8
+        description: ""
+      - name: MINT_E8
+        description: ""

@@ -1,0 +1,29 @@
+version: 2
+models:
+  - name: defi__fact_daily_tvl
+    description: "Fact table that shows the total valued locked and the total value bonded/pooled"
+    columns:
+      - name: FACT_DAILY_TVL_ID
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+          - unique
+      - name: DAY
+        description: "{{ doc('tx_id') }}"
+        tests:
+          - not_null
+      - name: TOTAL_VALUE_POOLED
+        description: "The total amount of rune provided by the liquidity provides and pooled in the pool"
+      - name: TOTAL_VALUE_POOLED_USD
+        description: "The total USD amount of rune provided by the liquidity provides and pooled in the pool"
+      - name: TOTAL_VALUE_BONDED
+        description: "The total amount of rune provided by the node operators and bonded in the pool"
+      - name: TOTAL_VALUE_BONDED_USD
+        description: "The total USD amount of rune provided by the node operators and bonded in the pool"
+      - name: TOTAL_VALUE_LOCKED
+        description: "The total rune value locked in the pool"
+      - name: TOTAL_VALUE_LOCKED_USD
+        description: "The total USD value locked in the pool"
+    tests:
+      - dbt_constraints.primary_key:
+          column_name: FACT_DAILY_TVL_ID

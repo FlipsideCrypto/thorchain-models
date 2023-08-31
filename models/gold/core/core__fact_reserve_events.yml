@@ -1,0 +1,29 @@
+version: 2
+models:
+  - name: core__fact_reserve_events
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_reserve_events. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_RESERVE_EVENTS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: TX_ID
+        description: "{{ doc('tx_id') }}"
+      - name: BLOCKCHAIN
+        description: "{{ doc('blockchain') }}"
+      - name: FROM_ADDRESS
+        description: "{{ doc('from_address') }}"
+      - name: TO_ADDRESS
+        description: "{{ doc('to_address') }}"
+      - name: ASSET
+        description: "{{ doc('asset') }}"
+      - name: ASSET_E8
+        description: "The asset amount"
+      - name: MEMO
+        description: "{{ doc('memo') }}"
+      - name: ADDRESS
+        description: "The address reserve the amount to the pool"
+      - name: E8
+        description: "The rune amount"

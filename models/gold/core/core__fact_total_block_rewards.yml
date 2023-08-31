@@ -1,0 +1,17 @@
+version: 2
+models:
+  - name: core__fact_total_block_rewards
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.fact_total_block_rewards. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_TOTAL_BLOCK_REWARDS_ID
+        description: "{{ doc('sk') }}"
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+      - name: REWARD_ENTITY
+        description: "The asset or named as pool name"
+      - name: RUNE_AMOUNT
+        description: "The rewards measured in RUNE amount"   
+      - name: RUNE_AMOUNT_USD
+        description: "The rewards measured in RUNE amount in the USD"

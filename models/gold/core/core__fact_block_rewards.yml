@@ -1,0 +1,21 @@
+version: 2
+models:
+  - name: core__fact_block_rewards
+    description: "Deprecating soon: This is a notice that we're replacing this table with defi.block_rewards. Please migrate queries to the new table by 9/11/23. There will be no column changes or any other changes of any kind."
+    columns:
+      - name: FACT_BLOCK_REWARDS_ID
+        description: "{{ doc('sk') }}"
+      - name: DAY
+        description: "The recorded day"
+      - name: LIQUIDITY_FEE
+        description: "The summarized liquidity cost fee within this day" 
+      - name: BLOCK_REWARDS
+        description: "The summarized total block rewards within this day"
+      - name: EARNINGS
+        description: "The summarized earnings within this day"
+      - name: BONDING_EARNINGS
+        description: "The summarized bonding earnings within this day"
+      - name: LIQUIDITY_EARNINGS
+        description: "The summarized liquidity earnings fee within this day"
+      - name: AVG_NODE_COUNT
+        description: "The summarized average node operators number within this day"
