@@ -4,7 +4,7 @@
   unique_key = 'fact_unstake_events_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE'],
-  enabled = FALSE
+  enabled = false
 ) }}
 
 WITH base AS (
