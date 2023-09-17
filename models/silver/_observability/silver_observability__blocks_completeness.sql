@@ -19,7 +19,7 @@ WITH summary_stats AS (
         block_timestamp <= DATEADD('hour', -12, CURRENT_TIMESTAMP())
 
 {% if is_incremental() %}
-AND (block_number >= (SELECT MIN(block_number) 
+AND (height >= (SELECT MIN(block_number) 
                       FROM ( SELECT MIN(height) AS block_number 
                              FROM {{ ref('silver__block_log') }} 
                              WHERE block_timestamp BETWEEN DATEADD('hour', -96, CURRENT_TIMESTAMP())
@@ -33,7 +33,7 @@ AND (block_number >= (SELECT MIN(block_number)
                                        LATERAL FLATTEN(input => blocks_impacted_array)
                             )
                       ) {% if var('OBSERV_FULL_TEST') %}
-            OR block_number >= 0
+            OR height >= 0
     {% endif %}
     )
 {% endif %}
@@ -53,7 +53,7 @@ block_range AS (
 blocks AS (
 
     SELECT
-      l.height,
+      l.height as block_number,
       block_timestamp,
       LAG(l.height,1) over (ORDER BY l.height ASC) AS prev_BLOCK_NUMBER
     FROM {{ ref("silver__block_log") }} l

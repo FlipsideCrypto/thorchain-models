@@ -52,7 +52,7 @@ block_range AS (
 broken_blocks AS (
 
     SELECT 
-      DISTINCT height
+      DISTINCT height as block_number
     FROM {{ ref("silver__block_log") }} b
         
     LEFT JOIN {{ ref("silver__swaps") }} t 
