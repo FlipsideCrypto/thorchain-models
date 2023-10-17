@@ -1,7 +1,7 @@
 {{ config(
   materialized = 'incremental',
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
-  unique_key = 'fact_loan_open_events_id',
+  unique_key = 'fact_tss_keygen_failure_events_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
 ) }}
@@ -9,20 +9,16 @@
 WITH base AS (
 
   SELECT
-    owner,
-    collateral_up,
-    debt_up,
-    collateralization_ratio,
-    collateral_asset,
-    target_asset,
+    fail_reason,
+    is_unicast,
+    blame_nodes,
+    ROUND,
+    height,
     event_id,
     block_timestamp,
-    collateral_deposited,
-    debt_issued,
-    tx_id,
     _INSERTED_TIMESTAMP
   FROM
-    {{ ref('silver__loan_open_events') }}
+    {{ ref('silver__tss_keygen_failure_events') }}
 
 {% if is_incremental() %}
 WHERE
@@ -39,20 +35,20 @@ WHERE
 SELECT
   {{ dbt_utils.generate_surrogate_key(
     ['a.event_id']
-  ) }} AS fact_loan_open_events_id,
+  ) }} AS fact_tss_keygen_failure_events_id,
   b.block_timestamp,
   COALESCE(
     b.dim_block_id,
     '-1'
   ) AS dim_block_id,
-  owner,
-  collateral_up,
-  debt_up,
-  collateralization_ratio,
-  collateral_asset,
-  target_asset,
+  fail_reason,
+  is_unicast,
+  blame_nodes,
+  ROUND,
+  height,
   event_id,
-  A._INSERTED_TIMESTAMP
+  A._inserted_timestamp,
+  '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
 FROM
   base A
   LEFT JOIN {{ ref('core__dim_block') }}

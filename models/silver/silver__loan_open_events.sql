@@ -10,6 +10,9 @@ SELECT
   collateral_asset,
   target_asset,
   event_id,
+  collateral_deposited,
+  debt_issued,
+  tx_id,
   block_timestamp,
   DATEADD(
     ms,

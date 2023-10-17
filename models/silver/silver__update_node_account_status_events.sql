@@ -3,10 +3,11 @@
 ) }}
 
 SELECT
-  node_addr as node_address,
+  node_addr AS node_address,
   current_flag AS current_status,
   former AS former_status,
   block_timestamp,
+  event_id,
   DATEADD(
     ms,
     __HEVO__LOADED_AT,
@@ -14,6 +15,6 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__update_node_account_status_events') }}
-  e qualify(ROW_NUMBER() over(PARTITION BY node_addr, block_timestamp, former, current_flag
-  ORDER BY
+  e qualify(ROW_NUMBER() over(PARTITION BY event_id
+ORDER BY
   __HEVO__LOADED_AT DESC)) = 1

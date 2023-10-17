@@ -24,6 +24,8 @@ WITH swaps AS (
     liq_fee_in_rune_e8,
     _DIRECTION,
     event_id,
+    streaming_count,
+    streaming_quantity,
     b.block_timestamp,
     b.height AS block_id,
     A._INSERTED_TIMESTAMP,
@@ -68,9 +70,11 @@ SELECT
       ':'
     ) [4] :: STRING
     WHEN n_tx > 1
-    AND LOWER(LEFT(memo, 1)) IN ('s', '=')
-    AND len(COALESCE( SPLIT(memo, ':') [2] :: STRING, '')) = 0
-    THEN from_address
+    AND LOWER(LEFT(memo, 1)) IN (
+      's',
+      '='
+    )
+    AND len(COALESCE(SPLIT(memo, ':') [2] :: STRING, '')) = 0 THEN from_address
     ELSE SPLIT(
       memo,
       ':'
@@ -124,6 +128,8 @@ SELECT
     WHEN to_asset = 'THOR.RUNE' THEN COALESCE(liq_fee_e8 * rune_usd / pow(10, 8), 0)
     ELSE COALESCE(liq_fee_e8 * asset_usd / pow(10, 8), 0)
   END AS liq_fee_asset_usd,
+  streaming_count,
+  streaming_quantity,
   concat_ws(
     '-',
     tx_id,

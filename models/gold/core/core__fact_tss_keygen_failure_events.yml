@@ -1,0 +1,40 @@
+version: 2
+models:
+  - name: core__fact_tss_keygen_failure_events
+    description: "Fact table shows failed keygen events"
+    columns:
+      - name: fact_tss_keygen_failure_events_id
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+          - unique
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+        tests:
+          - not_null:
+              where: DIM_BLOCK_ID not in ('-1','-2')
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+        tests:
+          - negative_one:
+              where: _inserted_timestamp <  (CURRENT_TIMESTAMP - INTERVAL '8 HOURS')
+      - name: fail_reason
+        description: "the reason for the failure"
+      - name: is_unicast
+        description: "" 
+      - name: blame_nodes
+        description: ""
+      - name: ROUND
+        description: "The round of the event"
+      - name: height
+        description: "The height of the event"
+    tests:
+      - dbt_constraints.primary_key:
+          column_name: fact_tss_keygen_failure_events_id
+      - dbt_constraints.foreign_key:
+          fk_column_name: DIM_BLOCK_ID
+          pk_table_name: ref('core__dim_block')
+          pk_column_name: DIM_BLOCK_ID
+
+
+

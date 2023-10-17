@@ -20,6 +20,8 @@ SELECT
   _DIRECTION,
   event_id,
   block_timestamp,
+  streaming_count,
+  streaming_quantity,
   DATEADD(
     ms,
     __HEVO__LOADED_AT,

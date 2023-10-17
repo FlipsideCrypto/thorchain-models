@@ -15,6 +15,6 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__validator_request_leave_events') }}
-  e qualify(ROW_NUMBER() over(PARTITION BY event_id, tx, block_timestamp, from_addr, node_addr
+  e qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
   __HEVO__INGESTED_AT DESC)) = 1

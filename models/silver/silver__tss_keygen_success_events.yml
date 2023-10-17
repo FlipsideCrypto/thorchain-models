@@ -1,0 +1,23 @@
+version: 2
+models:
+  - name: silver__tss_keygen_success_events
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - EVENT_ID
+    columns:
+      - name: pub_key
+        tests:
+          - not_null
+      - name: members
+        tests:
+          - not_null
+      - name: height
+        tests:
+          - not_null
+      - name: event_id
+        tests:
+          - not_null
+      - name: block_timestamp
+        tests:
+          - not_null
