@@ -64,6 +64,10 @@ models:
         description: "The amount of Asset liquidity fee paid in RUNE for the swaps"
       - name: LIQ_FEE_ASSET_USD
         description: "The amount of Asset in USD liquidity fee paid in RUNE for the swaps"
+      - name: STREAMING_COUNT
+        description: "The count of the streaming events"
+      - name: STREAMING_QUANTITY
+        description: "The quantity of the streaming events"            
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_SWAPS_ID

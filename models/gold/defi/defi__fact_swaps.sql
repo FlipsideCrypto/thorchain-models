@@ -1,6 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM, SWAPS' }}},
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM, SWAPS' }} },
   unique_key = 'fact_swaps_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
@@ -34,6 +34,8 @@ WITH base AS (
     liq_fee_rune_usd,
     liq_fee_asset,
     liq_fee_asset_usd,
+    streaming_count,
+    streaming_quantity,
     _unique_key,
     _inserted_timestamp
   FROM
@@ -83,6 +85,8 @@ SELECT
   liq_fee_rune_usd,
   liq_fee_asset,
   liq_fee_asset_usd,
+  streaming_count,
+  streaming_quantity,
   A._inserted_timestamp,
   '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
 FROM

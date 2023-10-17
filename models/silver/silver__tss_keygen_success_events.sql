@@ -3,7 +3,9 @@
 ) }}
 
 SELECT
-  node_addr AS node_address,
+  pub_key,
+  members,
+  height,
   event_id,
   block_timestamp,
   DATEADD(
@@ -12,7 +14,7 @@ SELECT
     '1970-01-01'
   ) AS _INSERTED_TIMESTAMP
 FROM
-  {{ ref('bronze__new_node_events') }}
-  qualify(ROW_NUMBER() over(PARTITION BY event_id
+  {{ ref('bronze__tss_keygen_success_events') }}
+  e qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
-  __HEVO__LOADED_AT DESC)) = 1
+  __HEVO__INGESTED_AT DESC)) = 1

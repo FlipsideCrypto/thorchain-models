@@ -16,6 +16,6 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__fee_events') }}
-  qualify(ROW_NUMBER() over(PARTITION BY event_id, asset, asset_e8, pool_deduct, block_timestamp, tx
+  qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
   __HEVO__LOADED_AT DESC)) = 1

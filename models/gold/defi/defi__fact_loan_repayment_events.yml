@@ -1,9 +1,9 @@
 version: 2
 models:
-  - name: defi__fact_loan_open_events
-    description: "Fact table that shows that the loan open events"
+  - name: defi__fact_loan_repayment_events
+    description: "Fact table that shows that the loan repayment events"
     columns:
-      - name: FACT_LOAN_OPEN_EVENTS_ID
+      - name: FACT_LOAN_REPAYMENT_EVENTS_ID
         description: "{{ doc('sk') }}"
         tests:
           - dbt_expectations.expect_column_to_exist
@@ -22,34 +22,28 @@ models:
         description: "The loan owner"
         tests:
           - not_null
-      - name: collateral_up
+      - name: collateral_down
         description: "The collateral amount"
-      - name: debt_up
+      - name: debt_down
         description: "The debt amount"
-      - name: collateralization_ratio
-        description: "The collateralization ratio"
-        tests:
-          - not_null
       - name: collateral_asset
-        description: "The collateralization asset"
-        tests:
-          - not_null
-      - name: target_asset
-        description: "The target asset" 
+        description: "The collateral asset"
         tests:
           - not_null
       - name: EVENT_ID
         description: ""
-      - name: collateral_deposited
-        description: "The amount of collateral deposited"
-      - name: debt_issued
-        description: "The amount of debt issued"
+      - name: collateral_withdrawn
+        description: "The amount of collateral withdrawn"
+      - name: debt_repaid
+        description: "The amount of debt repayed"
       - name: tx_id
         description: "The transaction ID"
     tests:
       - dbt_constraints.primary_key:
-          column_name: FACT_LOAN_OPEN_EVENTS_ID
+          column_name: FACT_LOAN_REPAYMENT_EVENTS_ID
       - dbt_constraints.foreign_key:
           fk_column_name: DIM_BLOCK_ID
           pk_table_name: ref('core__dim_block')
           pk_column_name: DIM_BLOCK_ID
+
+

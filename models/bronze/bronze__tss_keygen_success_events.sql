@@ -3,16 +3,10 @@
 ) }}
 
 SELECT
-  owner,
-  collateral_up,
-  debt_up,
-  collateralization_ratio,
-  collateral_asset,
-  target_asset,
+  pub_key,
+  members,
+  height,
   event_id,
-  collateral_deposited,
-  debt_issued,
-  tx_id,
   block_timestamp,
   __HEVO__DATABASE_NAME,
   __HEVO__SCHEMA_NAME,
@@ -21,5 +15,5 @@ SELECT
 FROM
   {{ source(
     'thorchain_midgard',
-    'midgard_loan_open_events'
+    'midgard_tss_keygen_success_events'
   ) }}

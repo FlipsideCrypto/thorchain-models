@@ -78,6 +78,10 @@ models:
         description: ""
         tests:
           - not_null
+      - name: STREAMING_COUNT
+        description: "The count of the streaming events"
+      - name: STREAMING_QUANTITY
+        description: "The quantity of the streaming events"                  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_SWAP_EVENTS_ID

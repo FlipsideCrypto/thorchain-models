@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: silver__loan_open_events
+  - name: silver__loan_repayment_events
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
@@ -9,15 +9,15 @@ models:
       - name: owner
         tests:
           - not_null
-      - name: collateral_up
-      - name: debt_up
-      - name: collateralization_ratio
+      - name: collateral_down
+      - name: debt_down
+      - name: debt_repaid
+        tests:
+          - not_null
+      - name: collateral_withdrawn
         tests:
           - not_null
       - name: collateral_asset
-        tests:
-          - not_null
-      - name: target_asset
         tests:
           - not_null
       - name: EVENT_ID

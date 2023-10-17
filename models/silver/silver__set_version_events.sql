@@ -14,6 +14,6 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__set_version_events') }}
-  qualify(ROW_NUMBER() over(PARTITION BY event_id, node_addr, block_timestamp, version
+  qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
   __HEVO__LOADED_AT DESC)) = 1

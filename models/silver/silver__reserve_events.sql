@@ -21,6 +21,6 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__reserve_events') }}
-  qualify(ROW_NUMBER() over(PARTITION BY event_id, tx, chain, from_addr, to_addr, asset, memo, addr, block_timestamp
+  qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
   __HEVO__LOADED_AT DESC)) = 1

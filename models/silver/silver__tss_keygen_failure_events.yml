@@ -1,29 +1,27 @@
 version: 2
 models:
-  - name: silver__loan_open_events
+  - name: silver__tss_keygen_failure_events
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - EVENT_ID
     columns:
-      - name: owner
+      - name: fail_reason
         tests:
           - not_null
-      - name: collateral_up
-      - name: debt_up
-      - name: collateralization_ratio
+      - name: is_unicast
         tests:
           - not_null
-      - name: collateral_asset
+      - name: blame_nodes
         tests:
           - not_null
-      - name: target_asset
+      - name: ROUND
+      - name: height
         tests:
           - not_null
-      - name: EVENT_ID
+      - name: event_id
         tests:
           - not_null
-      - name: BLOCK_TIMESTAMP
+      - name: block_timestamp
         tests:
           - not_null
-      - name: tx_id

@@ -16,6 +16,6 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__set_node_keys_events') }}
-  qualify(ROW_NUMBER() over(PARTITION BY event_id, node_addr, secp256k1, ed25519, block_timestamp, validator_consensus
+  qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
   __HEVO__LOADED_AT DESC)) = 1

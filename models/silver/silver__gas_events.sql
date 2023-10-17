@@ -16,6 +16,6 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__gas_events') }}
-  qualify(ROW_NUMBER() over(PARTITION BY event_id, asset, block_timestamp
+  qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
   __HEVO__LOADED_AT DESC)) = 1

@@ -3,8 +3,15 @@
 ) }}
 
 SELECT
-  node_addr AS node_address,
+  owner,
+  collateral_down,
+  debt_down,
+  collateral_asset,
   event_id,
+  block_timestamp,
+  collateral_withdrawn,
+  debt_repaid,
+  tx_id,
   block_timestamp,
   DATEADD(
     ms,
@@ -12,7 +19,7 @@ SELECT
     '1970-01-01'
   ) AS _INSERTED_TIMESTAMP
 FROM
-  {{ ref('bronze__new_node_events') }}
+  {{ ref('bronze__loan_repayment_events') }}
   qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
   __HEVO__LOADED_AT DESC)) = 1

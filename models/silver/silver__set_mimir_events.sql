@@ -14,6 +14,6 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__set_mimir_events') }}
-  qualify(ROW_NUMBER() over(PARTITION BY event_id, key, block_timestamp
+  qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
   __HEVO__INGESTED_AT DESC)) = 1
