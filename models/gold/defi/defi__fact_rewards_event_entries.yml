@@ -22,6 +22,8 @@ models:
         description: "{{ doc('pool_name') }}"
       - name: RUNE_E8
         description: "The rune amount of the rewards for this pool at this block"
+      - name: SAVER_E8
+        description: "The savers amount for this pool at this block"
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_REWARDS_EVENT_ENTRIES_ID

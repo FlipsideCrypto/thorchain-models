@@ -5,6 +5,7 @@
 SELECT
   pool AS pool_name,
   rune_e8,
+  saver_e8,
   event_id,
   block_timestamp,
   DATEADD(

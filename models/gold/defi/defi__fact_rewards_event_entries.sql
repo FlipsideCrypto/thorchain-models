@@ -11,6 +11,7 @@ WITH base AS (
   SELECT
     pool_name,
     rune_e8,
+    saver_e8,
     event_id,
     block_timestamp,
     _INSERTED_TIMESTAMP
@@ -40,6 +41,7 @@ SELECT
   ) AS dim_block_id,
   pool_name,
   rune_e8,
+  saver_e8,
   A._INSERTED_TIMESTAMP,
   '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
 FROM

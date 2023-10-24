@@ -5,6 +5,7 @@
 SELECT
   pool,
   rune_e8,
+  saver_e8,
   event_id,
   block_timestamp,
   __HEVO__DATABASE_NAME,
