@@ -15,7 +15,7 @@ profile: 'thorchain'
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
-seed-paths: ["seeds"]
+seed-paths: ["data"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
@@ -42,6 +42,7 @@ models:
 vars:
   "dbt_date:time_zone": GMT
   UPDATE_SNOWFLAKE_TAGS: true
+  START_GHA_TASKS: False
 
   dbt_constraints_sources_enabled: true
 

@@ -61,3 +61,8 @@ sources:
     schema: core
     tables:
       - name: dim_labels
+  - name: github_actions
+    database: thorchain
+    schema: github_actions
+    tables:
+      - name: workflows
