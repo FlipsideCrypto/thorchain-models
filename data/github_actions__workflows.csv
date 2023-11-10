@@ -1,3 +1,3 @@
 workflow_name,workflow_schedule
-dbt_run_incremental,"20,50 * * * *"
-dbt_test_tasks,"0,30 * * * *"
+dbt_run_incremental,"20 * * * *"
+dbt_test_tasks,"25,55 * * * *"
