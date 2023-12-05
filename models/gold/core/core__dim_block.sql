@@ -24,7 +24,9 @@ SELECT
     HASH,
     agg_state,
     _INSERTED_TIMESTAMP,
-    '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
+    '{{ invocation_id }}' AS _audit_run_id,
+    SYSDATE() AS inserted_timestamp,
+    SYSDATE() AS modified_timestamp
 FROM
     {{ ref('silver__block_log') }}
 
@@ -57,7 +59,9 @@ SELECT
     NULL AS HASH,
     NULL AS agg_state,
     '1900-01-01' :: DATE AS _inserted_timestamp,
-    '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
+    '{{ invocation_id }}' AS _audit_run_id,
+    '1900-01-01' :: DATE AS inserted_timestamp,
+    '1900-01-01' :: DATE AS modified_timestamp
 UNION ALL
 SELECT
     '-2' AS dim_block_id,
@@ -76,4 +80,6 @@ SELECT
     NULL AS HASH,
     NULL AS agg_state,
     '1900-01-01' :: DATE AS _inserted_timestamp,
-    '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
+    '{{ invocation_id }}' AS _audit_run_id,
+    '1900-01-01' :: DATE AS inserted_timestamp,
+    '1900-01-01' :: DATE AS modified_timestamp

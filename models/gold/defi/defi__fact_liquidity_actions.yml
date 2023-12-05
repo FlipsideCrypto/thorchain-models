@@ -65,6 +65,10 @@ models:
         description: "Only exists in unstake, or removing the liquidity"
       - name: unstake_basis_points
         description: "The basis points for unstaking, or removing the liquidity"
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_LIQUIDITY_ACTIONS_ID

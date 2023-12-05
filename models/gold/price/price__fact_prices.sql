@@ -1,6 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'FACT_PRICES_ID',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
@@ -39,7 +39,9 @@ SELECT
   asset_usd,
   rune_usd,
   pool_name,
-  '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
+  '{{ invocation_id }}' AS _audit_run_id,
+  SYSDATE() AS inserted_timestamp,
+  SYSDATE() AS modified_timestamp
 FROM
   base A
   LEFT JOIN {{ ref('core__dim_block') }}

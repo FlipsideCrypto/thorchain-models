@@ -33,7 +33,11 @@ models:
       - name: TX_COUNT
         description: "The total count of transactions within this block id"
         tests:
-          - not_null      
+          - not_null  
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_GAS_EVENTS_ID

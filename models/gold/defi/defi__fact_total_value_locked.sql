@@ -1,6 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_total_value_locked_id',
   incremental_strategy = 'merge'
 ) }}
@@ -37,6 +37,8 @@ SELECT
   total_value_bonded,
   total_value_locked,
   _INSERTED_TIMESTAMP,
-  '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
+  '{{ invocation_id }}' AS _audit_run_id,
+  SYSDATE() AS inserted_timestamp,
+  SYSDATE() AS modified_timestamp
 FROM
   base A

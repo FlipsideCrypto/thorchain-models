@@ -1,6 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }}},
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_bond_events_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
@@ -62,7 +62,9 @@ SELECT
   bond_type,
   e8,
   A._INSERTED_TIMESTAMP,
-  '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
+  '{{ invocation_id }}' AS _audit_run_id,
+  SYSDATE() AS inserted_timestamp,
+  SYSDATE() AS modified_timestamp
 FROM
   base A
   LEFT JOIN {{ ref('core__dim_block') }}
