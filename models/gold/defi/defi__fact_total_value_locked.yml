@@ -19,6 +19,10 @@ models:
         description: "The total amount of rune provided by the node operators and bonded in the pool"
       - name: TOTAL_VALUE_LOCKED
         description: "The total rune value locked in the pool"
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_TOTAL_VALUE_LOCKED_ID

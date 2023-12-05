@@ -88,6 +88,10 @@ models:
         description: "The unique swap address for this pool"
       - name: LIQUIDITY_UNITS
         description: "The amount of units for the liquidity in the pool"
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_DAILY_POOL_STATS_ID

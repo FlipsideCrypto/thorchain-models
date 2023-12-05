@@ -22,6 +22,10 @@ models:
         description: "The asgard address added to the vault"
         tests:
           - not_null
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_ACTIVE_VAULT_EVENTS_ID

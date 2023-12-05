@@ -43,7 +43,9 @@ SELECT
   asset,
   asset_e8,
   A._INSERTED_TIMESTAMP,
-  '{{ env_var("DBT_CLOUD_RUN_ID", "manual") }}' AS _audit_run_id
+  '{{ invocation_id }}' AS _audit_run_id,
+  SYSDATE() AS inserted_timestamp,
+  SYSDATE() AS modified_timestamp
 FROM
   base A
   LEFT JOIN {{ ref('core__dim_block') }}

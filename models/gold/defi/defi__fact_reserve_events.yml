@@ -36,6 +36,10 @@ models:
         description: "The address reserve the amount to the pool"
       - name: E8
         description: "The rune amount"
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_RESERVE_EVENTS_ID

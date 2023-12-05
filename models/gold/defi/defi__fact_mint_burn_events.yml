@@ -28,6 +28,10 @@ models:
         description: "The reason for the mint or burn action"
       - name: EVENT_ID
         description: ""
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_MINT_BURN_EVENTS_ID

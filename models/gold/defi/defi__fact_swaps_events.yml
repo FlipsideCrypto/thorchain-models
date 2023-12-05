@@ -81,7 +81,11 @@ models:
       - name: STREAMING_COUNT
         description: "The count of the streaming events"
       - name: STREAMING_QUANTITY
-        description: "The quantity of the streaming events"                  
+        description: "The quantity of the streaming events"   
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_SWAP_EVENTS_ID

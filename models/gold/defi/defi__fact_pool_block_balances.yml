@@ -42,6 +42,10 @@ models:
           - not_null
       - name: SYNTH_AMOUNT_USD
         description: "The synth amount balance in USD for this pool name"
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_POOL_BLOCK_BALANCES_ID

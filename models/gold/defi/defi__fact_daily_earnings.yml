@@ -55,6 +55,10 @@ models:
           - not_null  
       - name: AVG_NODE_COUNT
         description: "The summarized average node operators number within this day"
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_DAILY_EARNINGS_ID

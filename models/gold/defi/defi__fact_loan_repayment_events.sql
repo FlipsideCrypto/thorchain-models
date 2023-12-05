@@ -51,7 +51,10 @@ SELECT
   debt_repaid,
   tx_id,
   event_id,
-  A._INSERTED_TIMESTAMP
+  A._INSERTED_TIMESTAMP,
+  '{{ invocation_id }}' AS _audit_run_id,
+  SYSDATE() AS inserted_timestamp,
+  SYSDATE() AS modified_timestamp
 FROM
   base A
   LEFT JOIN {{ ref('core__dim_block') }}

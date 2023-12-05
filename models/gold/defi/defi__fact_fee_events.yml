@@ -34,6 +34,10 @@ models:
         description: "The asset amount for this fee, using the price table we can calculate the rune amount by asset amount"
         tests:
           - not_null
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_FEE_EVENTS_ID

@@ -36,6 +36,10 @@ models:
         description: "The amount of rune for the liquidity events"
       - name: PENDING_TYPE
         description: "The type of liquidity, can be 'add' or 'withdraw'"
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_PENDING_LIQUIDITY_EVENTS_ID

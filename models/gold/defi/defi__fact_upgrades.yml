@@ -31,6 +31,10 @@ models:
         description: "The minted RUNE amount"
       - name: MINT_AMOUNT_USD
         description: "The minted RUNE amount in USD"
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_UPGRADES_ID

@@ -46,6 +46,10 @@ models:
         description: "The amount of debt issued"
       - name: tx_id
         description: "The transaction ID"
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
           column_name: FACT_LOAN_OPEN_EVENTS_ID
