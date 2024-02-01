@@ -1,7 +1,6 @@
 version: 2
 models:
   - name: silver__transfers
-    tests:
 
     columns:
       - name: BLOCK_TIMESTAMP

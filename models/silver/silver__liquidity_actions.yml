@@ -1,7 +1,6 @@
 version: 2
 models:
   - name: silver__liquidity_actions
-    tests:
 
     columns:
       - name: BLOCK_TIMESTAMP
