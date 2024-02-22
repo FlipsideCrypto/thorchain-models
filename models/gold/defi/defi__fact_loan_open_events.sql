@@ -51,6 +51,8 @@ SELECT
   collateralization_ratio,
   collateral_asset,
   target_asset,
+  collateral_deposited,
+  debt_issued,
   event_id,
   A._INSERTED_TIMESTAMP,
   '{{ invocation_id }}' AS _audit_run_id,
