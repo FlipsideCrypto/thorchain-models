@@ -88,13 +88,15 @@ SELECT
       ':'
     ) [4] :: STRING
   END AS affiliate_address,
-  CASE
-    WHEN COALESCE(SPLIT(memo, ':') [5], '') = '' THEN NULL
-    ELSE SPLIT(
-      memo,
-      ':'
-    ) [5] :: INT
-  END AS affiliate_fee_basis_points,
+  TRY_CAST(
+    CASE
+      WHEN COALESCE(SPLIT(memo, ':') [5], '') = '' THEN NULL
+      ELSE SPLIT(
+        memo,
+        ':'
+      ) [5]
+    END :: STRING AS INT
+  ) AS affiliate_fee_basis_points,
   from_asset,
   to_asset,
   COALESCE(from_e8 / pow(10, 8), 0) AS from_amount,
