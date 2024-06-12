@@ -21,6 +21,7 @@ WHERE
   block_timestamp >= 1647913096219785087
 
 UNION ALL
+
 SELECT
   pool,
   asset_e8,
