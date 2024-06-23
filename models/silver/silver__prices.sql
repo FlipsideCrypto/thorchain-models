@@ -60,7 +60,7 @@ rune_usd_max_tbl AS (
   SELECT
     block_timestamp,
     block_id,
-    asset_e8 / rune_e8 AS rune_usd_max
+    asset_e8 / nullif(rune_e8,0) AS rune_usd_max
   FROM
     blocks
   WHERE
