@@ -13,7 +13,7 @@ WITH pool_depth AS (
     rune_e8 AS rune_depth,
     asset_e8 AS asset_depth,
     synth_e8 AS synth_depth,
-    rune_e8 / asset_e8 AS asset_price
+    rune_e8 / nullif(asset_e8,0) AS asset_price
   FROM
     (
       SELECT
