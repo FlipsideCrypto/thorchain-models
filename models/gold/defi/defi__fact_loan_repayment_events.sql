@@ -10,8 +10,9 @@ WITH base AS (
 
   SELECT
     owner,
-    collateral_down,
+    {# collateral_down,
     debt_down,
+    #}
     collateral_asset,
     event_id,
     block_timestamp,
@@ -44,8 +45,9 @@ SELECT
     '-1'
   ) AS dim_block_id,
   owner,
-  collateral_down,
+  {# collateral_down,
   debt_down,
+  #}
   collateral_asset,
   collateral_withdrawn,
   debt_repaid,

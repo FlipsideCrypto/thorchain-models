@@ -11,4 +11,6 @@ SELECT
     '1970-01-01'
   ) AS _INSERTED_TIMESTAMP
 FROM
-  {{ ref('bronze__rune_price') }}
+  {{ ref(
+    'bronze__rune_price'
+  ) }}

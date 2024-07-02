@@ -4,8 +4,9 @@
 
 SELECT
   owner,
-  collateral_down,
+  {# collateral_down,
   debt_down,
+  #}
   collateral_asset,
   event_id,
   block_timestamp,
