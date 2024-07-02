@@ -23,9 +23,9 @@ models:
         tests:
           - not_null
       - name: collateral_down
-        description: "The collateral amount"
+        description: "DEPRECATING SOON! The collateral amount"
       - name: debt_down
-        description: "The debt amount"
+        description: "DEPRECATING SOON! The debt amount"
       - name: collateral_asset
         description: "The collateral asset"
         tests:

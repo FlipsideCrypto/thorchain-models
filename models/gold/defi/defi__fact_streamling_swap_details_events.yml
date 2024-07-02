@@ -43,9 +43,11 @@ models:
       - name: failed_swaps
         description: "the count of failed swaps"
       - name: failed_swaps_reasons
-        description: "the reason of failed swaps"
+        description: "DEPRECATING SOON! the reason of failed swaps"
       - name: event_id
         description: ""
+      - name: failed_swap_reasons
+        description: "the reason of failed swaps"
       - name: INSERTED_TIMESTAMP
         description: '{{ doc("inserted_timestamp") }}'   
       - name: MODIFIED_TIMESTAMP

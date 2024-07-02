@@ -10,8 +10,9 @@ WITH base AS (
 
   SELECT
     owner,
-    collateral_up,
+    {# collateral_up,
     debt_up,
+    #}
     collateralization_ratio,
     collateral_asset,
     target_asset,
@@ -46,8 +47,8 @@ SELECT
     '-1'
   ) AS dim_block_id,
   owner,
-  collateral_up,
-  debt_up,
+  NULL AS collateral_up,
+  NULL AS debt_up,
   collateralization_ratio,
   collateral_asset,
   target_asset,

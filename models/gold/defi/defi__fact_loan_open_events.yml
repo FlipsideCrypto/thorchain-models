@@ -23,9 +23,9 @@ models:
         tests:
           - not_null
       - name: collateral_up
-        description: "The collateral amount"
+        description: "DEPRECATING SOON! The collateral amount"
       - name: debt_up
-        description: "The debt amount"
+        description: "DEPRECATING SOON! The debt amount"
       - name: collateralization_ratio
         description: "The collateralization ratio"
         tests:
