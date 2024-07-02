@@ -37,6 +37,9 @@ sources:
       - name: midgard_reserve_events
       - name: midgard_rewards_event_entries
       - name: midgard_rewards_events
+      - name: midgard_rune_price
+      - name: midgard_scheduled_outbound_events
+      - name: midgard_send_messages
       - name: midgard_set_ip_address_events
       - name: midgard_set_mimir_events
       - name: midgard_set_node_keys_events
@@ -49,6 +52,8 @@ sources:
       - name: midgard_switch_events
       - name: switch_events_pk_count
       - name: midgard_thorname_change_events
+      - name: midgard_trade_account_deposit_events
+      - name: midgard_trade_account_withdraw_events
       - name: midgard_transfer_events
       - name: midgard_tss_keygen_failure_events
       - name: midgard_tss_keygen_success_events
