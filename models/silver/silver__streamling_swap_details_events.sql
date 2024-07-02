@@ -18,6 +18,7 @@ SELECT
   failed_swaps_reasons,
   event_id,
   block_timestamp,
+  failed_swap_reasons,
   DATEADD(
     ms,
     __HEVO__LOADED_AT,

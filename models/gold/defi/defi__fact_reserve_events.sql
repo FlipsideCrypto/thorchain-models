@@ -20,6 +20,7 @@ WITH base AS (
     e8,
     event_id,
     block_timestamp,
+    _TX_TYPE,
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__reserve_events') }}
@@ -54,6 +55,7 @@ SELECT
   memo,
   address,
   e8,
+  _TX_TYPE,
   A._INSERTED_TIMESTAMP,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

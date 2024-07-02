@@ -36,6 +36,7 @@ WITH base AS (
     liq_fee_asset_usd,
     streaming_count,
     streaming_quantity,
+    _TX_TYPE,
     _unique_key,
     _inserted_timestamp
   FROM
@@ -87,6 +88,7 @@ SELECT
   liq_fee_asset_usd,
   streaming_count,
   streaming_quantity,
+  _TX_TYPE,
   A._inserted_timestamp,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

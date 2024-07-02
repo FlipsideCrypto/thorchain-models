@@ -28,6 +28,7 @@ WITH swaps AS (
     streaming_quantity,
     b.block_timestamp,
     b.height AS block_id,
+    _TX_TYPE,
     A._INSERTED_TIMESTAMP,
     COUNT(1) over (
       PARTITION BY tx_id
@@ -138,6 +139,7 @@ SELECT
     se.block_id,
     to_asset,
     from_asset,
+    _TX_TYPE,
     COALESCE(
       native_to_address,
       ''
