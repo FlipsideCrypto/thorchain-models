@@ -1,0 +1,10 @@
+version: 2
+models:
+  - name: silver__rune_price
+    columns:
+      - name: RUNE_PRICE_E8
+        tests:
+          - not_null
+      - name: BLOCK_TIMESTAMP
+        tests:
+          - not_null
