@@ -20,6 +20,7 @@ WITH base AS (
     e.from_address,
     e.asset,
     e.event_id,
+    e._TX_TYPE,
     _inserted_timestamp
   FROM
     {{ ref('silver__add_events') }}
@@ -63,6 +64,7 @@ SELECT
   A.to_address,
   A.from_address,
   A.asset,
+  A._TX_TYPE,
   A._inserted_timestamp,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,
