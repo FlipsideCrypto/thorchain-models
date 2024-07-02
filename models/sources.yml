@@ -6,6 +6,11 @@ sources:
     schema: silver
     tables:
       - name: prices_v2
+  - name: thorchain_midgard_prices
+    database: HEVO
+    schema: THORCHAIN_MIDGARD_2_22_3
+    tables:
+      - name: MIDGARD_RUNE_PRICE
   - name: thorchain_midgard
     database: HEVO
     schema: THORCHAIN_MIDGARD_2_17
