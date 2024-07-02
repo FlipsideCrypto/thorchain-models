@@ -32,6 +32,7 @@ SELECT
   e8,
   block_timestamp,
   event_id,
+  _TX_TYPE,
   __HEVO__LOADED_AT
 FROM
   {{ source(

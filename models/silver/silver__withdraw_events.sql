@@ -20,6 +20,7 @@ SELECT
   _emit_asset_in_rune_e8,
   event_id,
   block_timestamp,
+  _TX_TYPE,
   DATEADD(
     ms,
     __HEVO__LOADED_AT,

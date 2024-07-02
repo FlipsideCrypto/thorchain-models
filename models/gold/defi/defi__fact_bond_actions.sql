@@ -29,6 +29,7 @@ bond_events AS (
     e8,
     memo,
     event_id,
+    _TX_TYPE,
     _inserted_timestamp
   FROM
     {{ ref('silver__bond_events') }}
@@ -74,6 +75,7 @@ SELECT
     0
   ) AS asset_usd,
   memo,
+  _TX_TYPE,
   be._inserted_timestamp,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

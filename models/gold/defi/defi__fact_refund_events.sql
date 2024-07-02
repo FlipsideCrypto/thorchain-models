@@ -22,6 +22,7 @@ WITH base AS (
     reason,
     event_id,
     block_timestamp,
+    _TX_TYPE,
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__refund_events') }}

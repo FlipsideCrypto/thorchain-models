@@ -19,6 +19,7 @@ WITH base AS (
     bond_type,
     e8,
     block_timestamp,
+    _TX_TYPE,
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__bond_events') }}
@@ -61,6 +62,7 @@ SELECT
   memo,
   bond_type,
   e8,
+  _TX_TYPE,
   A._INSERTED_TIMESTAMP,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,
