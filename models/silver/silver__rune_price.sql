@@ -14,6 +14,3 @@ FROM
   {{ ref(
     'bronze__rune_price'
   ) }}
-  e qualify(ROW_NUMBER() over(PARTITION BY block_timestamp
-ORDER BY
-  __HEVO__LOADED_AT DESC)) = 1
