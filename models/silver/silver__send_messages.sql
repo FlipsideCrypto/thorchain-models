@@ -7,7 +7,7 @@ SELECT
   asset,
   from_addr as from_address,
   to_addr as to_address,
-  memo
+  memo,
   tx_id,
   event_id,
   block_timestamp,
