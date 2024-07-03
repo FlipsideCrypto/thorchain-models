@@ -6,7 +6,7 @@ models:
           combination_of_columns:
             - EVENT_ID
     columns:
-      - name: CHAIN
+      - name: BLOCKCHAIN
         tests:
           - not_null
       - name: TO_ADDRESS

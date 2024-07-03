@@ -3,8 +3,8 @@
 ) }}
 
 SELECT
-  chain,
-  to_addr as to_address,
+  chain AS blockchain,
+  to_addr AS to_address,
   asset,
   asset_e8,
   asset_decimals,

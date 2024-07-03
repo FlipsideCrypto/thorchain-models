@@ -30,9 +30,9 @@ WHERE
     FROM
       {{ this }}
   ) - INTERVAL '4 HOURS'
-  OR tx_id IN (
+  OR event_id IN (
     SELECT
-      tx_id
+      event_id
     FROM
       {{ this }}
     WHERE
@@ -55,12 +55,12 @@ SELECT
   rune_address,
   tx_id,
   event_id,
-  a._INSERTED_TIMESTAMP,
+  A._INSERTED_TIMESTAMP,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,
   SYSDATE() AS modified_timestamp
 FROM
-  base a
+  base A
   LEFT JOIN {{ ref('core__dim_block') }}
   b
   ON A.block_timestamp = b.timestamp

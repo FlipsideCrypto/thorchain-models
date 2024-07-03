@@ -1,11 +1,6 @@
 version: 2
 
 sources:
-  - name: shared
-    database: flipside_prod_db
-    schema: silver
-    tables:
-      - name: prices_v2
   - name: thorchain_midgard
     database: HEVO
     schema: THORCHAIN_MIDGARD_2_22_3

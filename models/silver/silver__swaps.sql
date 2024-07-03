@@ -133,13 +133,13 @@ SELECT
   END AS liq_fee_asset_usd,
   streaming_count,
   streaming_quantity,
+  _TX_TYPE,
   concat_ws(
     '-',
     tx_id,
     se.block_id,
     to_asset,
     from_asset,
-    _TX_TYPE,
     COALESCE(
       native_to_address,
       ''

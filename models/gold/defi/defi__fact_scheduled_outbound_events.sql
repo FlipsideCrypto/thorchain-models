@@ -9,7 +9,7 @@
 WITH base AS (
 
   SELECT
-    chain,
+    blockchain,
     to_address,
     asset,
     asset_e8,
@@ -38,18 +38,26 @@ WHERE
       )
     FROM
       {{ this }}
-{% endif %}
-)
+      OR event_id IN (
+        SELECT
+          event_id
+        FROM
+          {{ this }}
+        WHERE
+          dim_block_id = '-1'
+      )
+    {% endif %}
+  )
 SELECT
   {{ dbt_utils.generate_surrogate_key(
-    ['a.chain', 'a.to_address','a.asset','a.asset_e8','a.asset_decimals','a.gas_rate','a.memo','a.in_hash','a.out_hash','a.max_gas_amount','a.max_gas_decimals','a.max_gas_asset','a.module_name','a.vault_pub_key','a.event_id','a.block_timestamp']
+    ['a.blockchain', 'a.to_address','a.asset','a.asset_e8','a.asset_decimals','a.gas_rate','a.memo','a.in_hash','a.out_hash','a.max_gas_amount','a.max_gas_decimals','a.max_gas_asset','a.module_name','a.vault_pub_key','a.event_id','a.block_timestamp']
   ) }} AS fact_scheduled_outbound_events_id,
   b.block_timestamp,
   COALESCE(
     b.dim_block_id,
     '-1'
   ) AS dim_block_id,
-  chain,
+  blockchain,
   to_address,
   asset,
   asset_e8,
@@ -64,12 +72,12 @@ SELECT
   module_name,
   vault_pub_key,
   event_id,
-  a._INSERTED_TIMESTAMP,
+  A._INSERTED_TIMESTAMP,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,
   SYSDATE() AS modified_timestamp
 FROM
-  base a
+  base A
   LEFT JOIN {{ ref('core__dim_block') }}
   b
   ON A.block_timestamp = b.timestamp
