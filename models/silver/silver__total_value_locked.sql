@@ -83,7 +83,7 @@ total_pool_depth AS (
   WHERE LOWER(pool_name) NOT LIKE 'thor.%'
 
 {% if is_incremental() %}
-WHERE
+AND
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
