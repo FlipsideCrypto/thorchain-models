@@ -19,6 +19,7 @@ WITH base AS (
     in_tx,
     event_id,
     block_timestamp,
+    _TX_TYPE,
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__outbound_events') }}
@@ -52,6 +53,7 @@ SELECT
   asset_e8,
   memo,
   in_tx,
+  _TX_TYPE,
   A._INSERTED_TIMESTAMP,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

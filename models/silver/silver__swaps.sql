@@ -28,6 +28,7 @@ WITH swaps AS (
     streaming_quantity,
     b.block_timestamp,
     b.height AS block_id,
+    _TX_TYPE,
     A._INSERTED_TIMESTAMP,
     COUNT(1) over (
       PARTITION BY tx_id
@@ -132,6 +133,7 @@ SELECT
   END AS liq_fee_asset_usd,
   streaming_count,
   streaming_quantity,
+  _TX_TYPE,
   concat_ws(
     '-',
     tx_id,

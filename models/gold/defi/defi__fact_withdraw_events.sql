@@ -25,6 +25,7 @@ WITH base AS (
     e.imp_loss_protection_e8,
     e._emit_asset_in_rune_e8,
     e.block_timestamp,
+    _TX_TYPE,
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__withdraw_events') }}
@@ -66,6 +67,7 @@ SELECT
   A.asymmetry,
   A.imp_loss_protection_e8,
   A._emit_asset_in_rune_e8,
+  A._TX_TYPE,
   A._inserted_timestamp,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

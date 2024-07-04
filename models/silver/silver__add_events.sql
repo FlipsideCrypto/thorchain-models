@@ -14,6 +14,7 @@ SELECT
   pool AS pool_name,
   event_id,
   block_timestamp,
+  _TX_TYPE,
   DATEADD(
     ms,
     __HEVO__LOADED_AT,

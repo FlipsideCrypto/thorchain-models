@@ -3,25 +3,26 @@
 ) }}
 
 SELECT
-  tx AS tx_id,
   chain AS blockchain,
-  from_addr AS from_address,
   to_addr AS to_address,
   asset,
   asset_e8,
+  asset_decimals,
+  gas_rate,
   memo,
-  addr AS address,
-  e8,
+  in_hash,
+  out_hash,
+  max_gas_amount,
+  max_gas_decimals,
+  max_gas_asset,
+  module_name,
+  vault_pub_key,
   event_id,
   block_timestamp,
-  _TX_TYPE,
   DATEADD(
     ms,
     __HEVO__LOADED_AT,
     '1970-01-01'
   ) AS _INSERTED_TIMESTAMP
 FROM
-  {{ ref('bronze__reserve_events') }}
-  qualify(ROW_NUMBER() over(PARTITION BY event_id
-ORDER BY
-  __HEVO__LOADED_AT DESC)) = 1
+  {{ ref('bronze__scheduled_outbound_events') }}

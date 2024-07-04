@@ -28,6 +28,7 @@ WITH base AS (
     block_timestamp,
     streaming_count,
     streaming_quantity,
+    _TX_TYPE,
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__swap_events') }}
@@ -69,6 +70,7 @@ SELECT
   liq_fee_in_rune_e8,
   _DIRECTION,
   event_id,
+  _TX_TYPE,
   A._inserted_timestamp,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

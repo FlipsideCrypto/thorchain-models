@@ -15,9 +15,10 @@ SELECT
   out_asset,
   out_e8,
   failed_swaps,
-  failed_swaps_reasons,
+  {# failed_swaps_reasons, #}
   event_id,
   block_timestamp,
+  failed_swap_reasons,
   __HEVO__DATABASE_NAME,
   __HEVO__SCHEMA_NAME,
   __HEVO__INGESTED_AT,

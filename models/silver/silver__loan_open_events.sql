@@ -4,8 +4,9 @@
 
 SELECT
   owner,
-  collateral_up,
+  {# collateral_up,
   debt_up,
+  #}
   collateralization_ratio,
   collateral_asset,
   target_asset,

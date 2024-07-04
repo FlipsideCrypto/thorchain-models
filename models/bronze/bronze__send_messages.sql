@@ -3,7 +3,13 @@
 ) }}
 
 SELECT
-  rune_price_e8,
+  amount_e8,
+  asset,
+  from_addr,
+  to_addr,
+  memo,
+  tx_id,
+  event_id,
   block_timestamp,
   __HEVO__DATABASE_NAME,
   __HEVO__SCHEMA_NAME,
@@ -12,5 +18,5 @@ SELECT
 FROM
   {{ source(
     'thorchain_midgard',
-    'midgard_rune_price'
+    'midgard_send_messages'
   ) }}

@@ -1,7 +1,7 @@
 {{ config(
   materialized = 'incremental',
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
-  unique_key = 'fact_refund_events_id',
+  unique_key = 'fact_rune_price_id',
   incremental_strategy = 'merge',
   cluster_by = ['block_timestamp::DATE']
 ) }}
@@ -9,23 +9,11 @@
 WITH base AS (
 
   SELECT
-    tx_id,
-    blockchain,
-    from_address,
-    to_address,
-    asset,
-    asset_e8,
-    asset_2nd,
-    asset_2nd_e8,
-    memo,
-    code,
-    reason,
-    event_id,
+    rune_price_e8,
     block_timestamp,
-    _TX_TYPE,
-    _INSERTED_TIMESTAMP
+    _inserted_timestamp
   FROM
-    {{ ref('silver__refund_events') }}
+    {{ ref('silver__rune_price') }}
 
 {% if is_incremental() %}
 WHERE
@@ -36,30 +24,20 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) - INTERVAL '4 HOURS'
 {% endif %}
 )
 SELECT
   {{ dbt_utils.generate_surrogate_key(
-    ['a.event_id','a.tx_id','a.blockchain','a.from_address' ,'a.to_address','a. asset', 'a.asset_2nd', 'a.memo', 'a.code', 'a.reason', 'a.block_timestamp']
-  ) }} AS fact_refund_events_id,
+    ['a.block_timestamp']
+  ) }} AS fact_rune_price_id,
   b.block_timestamp,
   COALESCE(
     b.dim_block_id,
     '-1'
   ) AS dim_block_id,
-  tx_id,
-  blockchain,
-  from_address,
-  to_address,
-  asset,
-  asset_e8,
-  asset_2nd,
-  asset_2nd_e8,
-  memo,
-  code,
-  reason,
-  A._INSERTED_TIMESTAMP,
+  rune_price_e8 AS rune_usd,
+  A._inserted_timestamp,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,
   SYSDATE() AS modified_timestamp

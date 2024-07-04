@@ -21,9 +21,10 @@ WITH base AS (
     out_asset,
     out_e8,
     failed_swaps,
-    failed_swaps_reasons,
+    failed_swap_reasons AS failed_swaps_reasons,
     event_id,
     block_timestamp,
+    failed_swap_reasons,
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__streamling_swap_details_events') }}
@@ -63,6 +64,7 @@ SELECT
   failed_swaps,
   failed_swaps_reasons,
   event_id,
+  failed_swap_reasons,
   A._inserted_timestamp,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

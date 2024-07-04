@@ -22,6 +22,7 @@ SELECT
   block_timestamp,
   streaming_count,
   streaming_quantity,
+  _TX_TYPE,
   __HEVO__DATABASE_NAME,
   __HEVO__SCHEMA_NAME,
   __HEVO__INGESTED_AT,

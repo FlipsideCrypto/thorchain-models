@@ -3,16 +3,13 @@
 ) }}
 
 SELECT
-  owner,
-  {# collateral_down,
-  debt_down,
-  #}
-  collateral_asset,
-  event_id,
-  block_timestamp,
-  collateral_withdrawn,
-  debt_repaid,
+  amount_e8,
+  asset,
+  from_addr as from_address,
+  to_addr as to_address,
+  memo,
   tx_id,
+  event_id,
   block_timestamp,
   DATEADD(
     ms,
@@ -20,7 +17,7 @@ SELECT
     '1970-01-01'
   ) AS _INSERTED_TIMESTAMP
 FROM
-  {{ ref('bronze__loan_repayment_events') }}
+  {{ ref('bronze__send_messages') }}
   qualify(ROW_NUMBER() over(PARTITION BY event_id
 ORDER BY
   __HEVO__LOADED_AT DESC)) = 1
