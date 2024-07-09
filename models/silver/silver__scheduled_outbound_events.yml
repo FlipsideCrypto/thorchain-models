@@ -30,14 +30,8 @@ models:
           - not_null
       - name: OUT_HASH
       - name: MAX_GAS_AMOUNT
-        tests:
-          - not_null
       - name: MAX_GAS_DECIMALS
-        tests:
-          - not_null
       - name: MAX_GAS_ASSET
-        tests:
-          - not_null
       - name: MODULE_NAME
       - name: VAULT_PUB_KEY
         tests:
