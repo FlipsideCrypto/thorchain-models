@@ -38,5 +38,5 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run -s ./models --vars '{"target_database": "thorchain_dev"}'
+          dbt run -s ./models -t
 
