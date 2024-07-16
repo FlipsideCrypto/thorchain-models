@@ -1,5 +1,5 @@
-name: dbt_run_dev_refresh
-run-name: dbt_run_dev_refresh
+name: dbt_run_dev_incremental
+run-name: dbt_run_dev_incremental
 
 on:
   workflow_dispatch:
