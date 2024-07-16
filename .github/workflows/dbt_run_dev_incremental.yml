@@ -23,7 +23,7 @@ jobs:
   run_dbt_jobs:
     runs-on: ubuntu-latest
     environment: 
-      name: workflow_prod
+      name: workflow_dev
 
     steps:
       - uses: actions/checkout@v3
@@ -38,4 +38,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run-operation run_sp_create_prod_clone
+          dbt run -s ./models
