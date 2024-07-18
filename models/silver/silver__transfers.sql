@@ -50,5 +50,5 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '4 HOURS'
+  ) - INTERVAL '48 HOURS'
 {% endif %}

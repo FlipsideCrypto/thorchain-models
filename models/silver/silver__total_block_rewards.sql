@@ -49,7 +49,7 @@ WHERE
         )
       FROM
         {{ this }}
-    ) - INTERVAL '4 HOURS'
+    ) - INTERVAL '48 HOURS'
     OR concat_ws(
       '-',
       b.height,
@@ -102,7 +102,7 @@ WHERE
         )
       FROM
         {{ this }}
-    ) - INTERVAL '4 HOURS'
+    ) - INTERVAL '48 HOURS'
     OR concat_ws(
       '-',
       b.height,
