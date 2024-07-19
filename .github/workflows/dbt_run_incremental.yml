@@ -38,4 +38,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run -s ./models --full-refresh
+          dbt run -s ./models
