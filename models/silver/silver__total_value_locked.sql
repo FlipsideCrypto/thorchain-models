@@ -2,6 +2,7 @@
   materialized = 'incremental',
   unique_key = "day",
   incremental_strategy = 'merge',
+  incremental_predicates = ["DBT_INTERNAL_DEST.day" >= datediff(day, -2, current_date)],
   cluster_by = ['day']
 ) }}
 
