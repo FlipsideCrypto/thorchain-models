@@ -2,6 +2,7 @@
     materialized = 'incremental',
     unique_key = 'dim_block_id',
     incremental_strategy = 'merge',
+    incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= datediff(day, -2, current_date)],
     cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -39,7 +40,7 @@ WHERE
             )
         FROM
             {{ this }}
-    ) - INTERVAL '72 HOURS'
+    ) - INTERVAL '48 HOURS'
 {% endif %}
 UNION ALL
 SELECT

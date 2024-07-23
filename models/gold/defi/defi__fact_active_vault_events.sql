@@ -3,6 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_active_vault_events_id',
   incremental_strategy = 'merge',
+  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= datediff(day, -2, current_date)], 
   cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -25,7 +26,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '4 HOURS'
+  ) - INTERVAL '48 HOURS'
   OR add_asgard_addr IN (
     SELECT
       add_asgard_addr

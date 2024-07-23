@@ -3,6 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM, SWAPS' }} },
   unique_key = 'fact_swaps_id',
   incremental_strategy = 'merge',
+  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= datediff(day, -2, current_date)], 
   cluster_by = ['block_timestamp::DATE']
 ) }}
 

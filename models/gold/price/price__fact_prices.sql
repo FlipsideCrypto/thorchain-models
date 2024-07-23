@@ -3,6 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'FACT_PRICES_ID',
   incremental_strategy = 'merge',
+  incremental_predicates = ["DBT_INTERNAL_DEST.block_timestamp" >= datediff(day, -2, current_date)], 
   cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -22,7 +23,7 @@ WITH base AS (
 
 {% if is_incremental() %}
 WHERE
-  block_timestamp :: DATE >= CURRENT_DATE -5
+  block_timestamp :: DATE >= CURRENT_DATE -2
 {% endif %}
 )
 SELECT

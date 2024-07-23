@@ -3,6 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_pool_block_fees_id',
   incremental_strategy = 'merge',
+  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= datediff(day, -2, current_date)], 
   cluster_by = ['day']
 ) }}
 

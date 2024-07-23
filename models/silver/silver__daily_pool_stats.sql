@@ -1,7 +1,8 @@
 {{ config(
   materialized = 'incremental',
   unique_key = "_unique_key",
-  incremental_strategy = 'merge'
+  incremental_strategy = 'merge',
+  incremental_predicates = ["DBT_INTERNAL_DEST.day" >= datediff(day, -2, current_date)]
 ) }}
 
 WITH daily_rune_price AS (
