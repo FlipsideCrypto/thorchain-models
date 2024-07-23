@@ -3,7 +3,7 @@
   unique_key = '_unique_key',
   incremental_strategy = 'merge',
   cluster_by = ['day'],
-  incremental_predicates = ["DBT_INTERNAL_DEST.day" >= datediff(day, -2, current_date)]
+  incremental_predicates = ["DBT_INTERNAL_DEST.day" >= datediff(day, -3, current_date)]
 ) }}
 
 WITH pool_depth AS (

@@ -3,7 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'event_id',
   incremental_strategy = 'merge',
-  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= datediff(day, -2, current_date)], 
+  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= datediff(day, -3, current_date)], 
   cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -31,7 +31,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '4 HOURS'
+  ) - INTERVAL '48 HOURS'
   OR event_id IN (
     SELECT
       event_id

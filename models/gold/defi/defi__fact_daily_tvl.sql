@@ -3,7 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_daily_tvl_id',
   incremental_strategy = 'merge',
-  incremental_predicates = ["DBT_INTERNAL_DEST.DAY" >= datediff(day, -2, current_date)], 
+  incremental_predicates = ["DBT_INTERNAL_DEST.DAY" >= datediff(day, -3, current_date)], 
   cluster_by = ['day']
 ) }}
 
