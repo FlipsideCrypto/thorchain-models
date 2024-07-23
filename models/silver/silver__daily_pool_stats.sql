@@ -2,7 +2,7 @@
   materialized = 'incremental',
   unique_key = "_unique_key",
   incremental_strategy = 'merge',
-  incremental_predicates = ["DBT_INTERNAL_DEST.day" >= datediff(day, -3, current_date)]
+  incremental_predicates = ["DBT_INTERNAL_DEST.day" >= dateadd(hour, -48, current_timestamp)]
 ) }}
 
 WITH daily_rune_price AS (

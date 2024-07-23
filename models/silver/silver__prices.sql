@@ -2,8 +2,7 @@
   materialized = 'incremental',
   unique_key = "_unique_key",
   incremental_strategy = 'merge',
-  cluster_by = ['block_timestamp::DATE'],
-  incremental_predicates = ["DBT_INTERNAL_DEST.block_timestamp" >= datediff(day, -7, current_date)]
+  cluster_by = ['block_timestamp::DATE']
 ) }}
 -- block level prices by pool
 -- step 1 what is the USD pool with the highest balance (aka deepest pool)
@@ -23,7 +22,7 @@ WITH blocks AS (
 
 {% if is_incremental() %}
 WHERE
-  b.block_timestamp :: DATE >= CURRENT_DATE -7
+  b.block_timestamp :: DATE >= CURRENT_DATE -5
 {% endif %}
 ),
 price AS (

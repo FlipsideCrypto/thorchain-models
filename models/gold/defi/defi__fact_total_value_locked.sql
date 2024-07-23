@@ -2,8 +2,7 @@
   materialized = 'incremental',
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_total_value_locked_id',
-  incremental_strategy = 'merge',
-  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= datediff(day, -3, current_date)]
+  incremental_strategy = 'merge'
 ) }}
 
 WITH base AS (

@@ -2,8 +2,7 @@
   materialized = 'incremental',
   unique_key = '_unique_key',
   incremental_strategy = 'merge',
-  cluster_by = ['day'],
-  incremental_predicates = ["DBT_INTERNAL_DEST.day" >= datediff(day, -3, current_date)]
+  cluster_by = ['day']
 ) }}
 
 WITH pool_depth AS (

@@ -3,7 +3,7 @@
   unique_key = 'day',
   incremental_strategy = 'merge',
   cluster_by = ['_inserted_timestamp::DATE'],
-  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= datediff(day, -3, current_date)]
+  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= dateadd(hour, -48, current_timestamp)]
 ) }}
 
 WITH max_daily_block AS (

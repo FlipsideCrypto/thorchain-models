@@ -2,7 +2,7 @@
     materialized = 'incremental',
     unique_key = 'dim_block_id',
     incremental_strategy = 'merge',
-    incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= datediff(day, -3, current_date)],
+    incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= dateadd(hour, -48, current_timestamp)],
     cluster_by = ['block_timestamp::DATE']
 ) }}
 
