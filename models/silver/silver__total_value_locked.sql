@@ -31,7 +31,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY,
@@ -91,7 +91,7 @@ AND
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 ),
 total_pool_depth_max AS (

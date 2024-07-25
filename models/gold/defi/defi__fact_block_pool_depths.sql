@@ -28,7 +28,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
   OR pool_name IN (
     SELECT
       pool_name

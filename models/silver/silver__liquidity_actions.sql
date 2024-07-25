@@ -33,7 +33,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 ),
 unstakes AS (
@@ -63,7 +63,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 SELECT

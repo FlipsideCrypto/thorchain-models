@@ -22,7 +22,7 @@ WITH blocks AS (
 
 {% if is_incremental() %}
 WHERE
-  b.block_timestamp :: DATE >= CURRENT_DATE -5
+  b.block_timestamp :: DATE >= CURRENT_DATE -2
 {% endif %}
 ),
 price AS (
@@ -38,7 +38,7 @@ price AS (
 
 {% if is_incremental() %}
 WHERE
-  b.block_timestamp :: DATE >= CURRENT_DATE -7
+  b.block_timestamp :: DATE >= CURRENT_DATE -2
 {% endif %}
 ) -- step 3 calculate the prices of assets by pool, in terms of tokens per tokens
 -- and in USD for both tokens

@@ -26,7 +26,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
   OR add_asgard_addr IN (
     SELECT
       add_asgard_addr

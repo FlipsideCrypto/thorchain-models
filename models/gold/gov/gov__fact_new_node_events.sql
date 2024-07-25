@@ -26,7 +26,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
   OR node_address IN (
     SELECT
       node_address

@@ -25,7 +25,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   block_timestamp
@@ -54,7 +54,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   block_timestamp
@@ -109,7 +109,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   1
@@ -135,7 +135,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY
@@ -161,7 +161,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY

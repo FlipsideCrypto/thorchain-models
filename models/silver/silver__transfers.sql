@@ -2,6 +2,7 @@
   materialized = 'incremental',
   unique_key = "_unique_key",
   incremental_strategy = 'merge',
+  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= dateadd(hour, -48, current_timestamp)], 
   cluster_by = ['_inserted_timestamp::DATE']
 ) }}
 
@@ -50,5 +51,5 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}

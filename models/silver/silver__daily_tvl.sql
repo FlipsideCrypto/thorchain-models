@@ -25,7 +25,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY
@@ -50,7 +50,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY,

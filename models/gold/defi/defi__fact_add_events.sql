@@ -36,7 +36,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
   OR tx_id IN (
     SELECT
       tx_id

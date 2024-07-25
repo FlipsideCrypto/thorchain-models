@@ -44,7 +44,7 @@ AND b.block_timestamp :: DATE >= (
     )
   FROM
     {{ this }}
-) - INTERVAL '48 HOURS'
+) 
 {% endif %}
 )
 WHERE
@@ -81,7 +81,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 WHERE
@@ -112,7 +112,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY,
@@ -144,7 +144,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY,
@@ -181,7 +181,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 GROUP BY
@@ -229,7 +229,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 GROUP BY
@@ -280,7 +280,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 GROUP BY
@@ -312,7 +312,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   pool_name,
@@ -342,7 +342,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   pool_name,
@@ -370,7 +370,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   pool_name,
@@ -399,7 +399,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   from_address,
@@ -430,7 +430,7 @@ AND b.block_timestamp :: DATE >= (
     )
   FROM
     {{ this }}
-) - INTERVAL '48 HOURS'
+) 
 {% endif %}
 GROUP BY
   rune_address,
@@ -461,7 +461,7 @@ AND b.block_timestamp :: DATE >= (
     )
   FROM
     {{ this }}
-) - INTERVAL '48 HOURS'
+) 
 {% endif %}
 GROUP BY
   asset_address,

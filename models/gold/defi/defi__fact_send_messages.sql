@@ -31,7 +31,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
   OR event_id IN (
     SELECT
       event_id
