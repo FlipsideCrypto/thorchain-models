@@ -2,6 +2,7 @@
   materialized = 'incremental',
   unique_key = "_unique_key",
   incremental_strategy = 'merge',
+  cluster_by = ['block_timestamp::DATE'],
   incremental_predicates = ['DBT_INTERNAL_DEST.day >= (select min(day) from ' ~ generate_tmp_view_name(this) ~ ')']
 ) }}
 

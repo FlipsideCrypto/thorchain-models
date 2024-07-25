@@ -2,6 +2,7 @@
   materialized = 'incremental',
   unique_key = "_unique_key",
   incremental_strategy = 'merge',
+  incremental_predicates = ['DBT_INTERNAL_DEST.block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'],
   cluster_by = ['block_timestamp::DATE']
 ) }}
 -- block level prices by pool
@@ -22,7 +23,14 @@ WITH blocks AS (
 
 {% if is_incremental() %}
 WHERE
-  b.block_timestamp :: DATE >= CURRENT_DATE -2
+ b.block_timestamp :: DATE >= (
+    SELECT
+      MAX(
+        block_timestamp
+      )
+    FROM
+      {{ this }}
+  ) 
 {% endif %}
 ),
 price AS (
@@ -38,7 +46,14 @@ price AS (
 
 {% if is_incremental() %}
 WHERE
-  b.block_timestamp :: DATE >= CURRENT_DATE -2
+  b.block_timestamp :: DATE >= (
+    SELECT
+      MAX(
+        block_timestamp
+      )
+    FROM
+      {{ this }}
+  ) 
 {% endif %}
 ) -- step 3 calculate the prices of assets by pool, in terms of tokens per tokens
 -- and in USD for both tokens

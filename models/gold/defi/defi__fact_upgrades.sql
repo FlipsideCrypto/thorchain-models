@@ -3,7 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_upgrades_id',
   incremental_strategy = 'merge',
-  incremental_predicates = ['DBT_INTERNAL_DEST._inserted_timestamp >= (select min(_inserted_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'], 
+  incremental_predicates = ['DBT_INTERNAL_DEST.block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'], 
   cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -23,18 +23,6 @@ WITH base AS (
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__upgrades') }}
-
-{% if is_incremental() %}
-WHERE
-  _inserted_timestamp >= (
-    SELECT
-      MAX(
-        _inserted_timestamp
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 )
 SELECT
   {{ dbt_utils.generate_surrogate_key(
@@ -62,3 +50,14 @@ FROM
   LEFT JOIN {{ ref('core__dim_block') }}
   b
   ON A.block_id = b.block_id
+{% if is_incremental() %}
+WHERE
+  dim_block_id >= (
+    SELECT
+      MAX(
+        dim_block_id
+      )
+    FROM
+      {{ this }}
+  ) 
+{% endif %}

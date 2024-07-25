@@ -1,7 +1,9 @@
 {{ config(
   materialized = 'incremental',
   unique_key = "_unique_key",
-  incremental_strategy = 'merge'
+  incremental_strategy = 'merge',
+  incremental_predicates = ['DBT_INTERNAL_DEST.DAY >= (select min(DAY) from ' ~ generate_tmp_view_name(this) ~ ')'], 
+  cluster_by = ['day']
 ) }}
 
 WITH all_block_id AS (

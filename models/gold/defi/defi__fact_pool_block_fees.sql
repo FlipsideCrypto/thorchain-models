@@ -3,6 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_pool_block_fees_id',
   incremental_strategy = 'merge',
+  incremental_predicates = ['DBT_INTERNAL_DEST.day >= (select min(day) from ' ~ generate_tmp_view_name(this) ~ ')'],
   cluster_by = ['day']
 ) }}
 
@@ -23,10 +24,10 @@ WITH base AS (
 
 {% if is_incremental() %}
 WHERE
-  _inserted_timestamp >= (
+  DAY >= (
     SELECT
       MAX(
-        _inserted_timestamp
+        DAY
       )
     FROM
       {{ this }}

@@ -2,8 +2,7 @@
   materialized = 'incremental',
   unique_key = '_unique_key',
   incremental_strategy = 'merge',
-  incremental_predicates = ['DBT_INTERNAL_DEST._inserted_timestamp >= (select min(_inserted_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'], 
-  cluster_by = ['_inserted_timestamp::DATE']
+  cluster_by = ['block_timestamp::DATE']
 ) }}
 
 SELECT
@@ -35,10 +34,10 @@ FROM
 
 {% if is_incremental() %}
 WHERE
-  bpd._inserted_timestamp >= (
+  b.block_timestamp >= (
     SELECT
       MAX(
-        _inserted_timestamp
+        block_timestamp
       )
     FROM
       {{ this }}

@@ -2,8 +2,7 @@
   materialized = 'incremental',
   unique_key = 'day',
   incremental_strategy = 'merge',
-  cluster_by = ['_inserted_timestamp::DATE'],
-  incremental_predicates = ['DBT_INTERNAL_DEST._inserted_timestamp >= (select min(_inserted_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')']
+  cluster_by = ['block_timestamp::DATE']
 ) }}
 
 WITH max_daily_block AS (

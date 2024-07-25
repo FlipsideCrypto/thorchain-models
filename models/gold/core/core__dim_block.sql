@@ -2,7 +2,7 @@
     materialized = 'incremental',
     unique_key = 'dim_block_id',
     incremental_strategy = 'merge',
-    incremental_predicates = ['DBT_INTERNAL_DEST._inserted_timestamp >= (select min(_inserted_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'],
+    incremental_predicates = ['DBT_INTERNAL_DEST.block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'],
     cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -33,10 +33,10 @@ FROM
 
 {% if is_incremental() %}
 WHERE
-    _inserted_timestamp >= (
+    block_timestamp >= (
         SELECT
             MAX(
-                _inserted_timestamp
+                block_timestamp
             )
         FROM
             {{ this }}
@@ -63,6 +63,17 @@ SELECT
     '{{ invocation_id }}' AS _audit_run_id,
     '1900-01-01' :: DATE AS inserted_timestamp,
     '1900-01-01' :: DATE AS modified_timestamp
+{% if is_incremental() %}
+WHERE
+    block_timestamp >= (
+        SELECT
+            MAX(
+                block_timestamp
+            )
+        FROM
+            {{ this }}
+    ) 
+{% endif %}
 UNION ALL
 SELECT
     '-2' AS dim_block_id,
@@ -84,3 +95,14 @@ SELECT
     '{{ invocation_id }}' AS _audit_run_id,
     '1900-01-01' :: DATE AS inserted_timestamp,
     '1900-01-01' :: DATE AS modified_timestamp
+{% if is_incremental() %}
+WHERE
+    block_timestamp >= (
+        SELECT
+            MAX(
+                block_timestamp
+            )
+        FROM
+            {{ this }}
+    ) 
+{% endif %}
