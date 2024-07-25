@@ -3,7 +3,7 @@
   unique_key = '_unique_key',
   incremental_strategy = 'merge',
   cluster_by = ['_inserted_timestamp::DATE'],
-  incremental_predicates = ["DBT_INTERNAL_DEST._inserted_timestamp" >= dateadd(hour, -48, current_timestamp)]
+  incremental_predicates = ['DBT_INTERNAL_DEST._inserted_timestamp >= (select min(_inserted_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')']
 ) }}
 
 WITH stakes AS (

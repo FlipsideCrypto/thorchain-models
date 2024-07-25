@@ -3,7 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'FACT_PRICES_ID',
   incremental_strategy = 'merge',
-  incremental_predicates = ["DBT_INTERNAL_DEST.block_timestamp" >= dateadd(hour, -48, current_timestamp)], 
+  incremental_predicates = ['DBT_INTERNAL_DEST. block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'], 
   cluster_by = ['block_timestamp::DATE']
 ) }}
 

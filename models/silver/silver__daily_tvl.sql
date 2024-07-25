@@ -2,7 +2,7 @@
   materialized = 'incremental',
   unique_key = "day",
   incremental_strategy = 'merge',
-  incremental_predicates = ["DBT_INTERNAL_DEST.day" >= dateadd(hour, -48, current_timestamp)]  
+  incremental_predicates = ['DBT_INTERNAL_DEST.day >= (select min(day) from ' ~ generate_tmp_view_name(this) ~ ')']
 ) }}
 
 WITH max_daily_block AS (
