@@ -3,7 +3,8 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_daily_earnings_id',
   incremental_predicates = ['DBT_INTERNAL_DEST.day >= (select min(day) from ' ~ generate_tmp_view_name(this) ~ ')'], 
-  incremental_strategy = 'merge'
+  incremental_strategy = 'merge',
+  cluster_by = ['day']
 ) }}
 
 WITH base AS (
