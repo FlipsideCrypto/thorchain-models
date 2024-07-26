@@ -100,7 +100,7 @@ WHERE
   b.block_timestamp >= (
     SELECT
       MAX(
-        block_timestamp
+        block_timestamp - INTERVAL '1 HOUR'
       )
     FROM
       {{ this }}
@@ -172,7 +172,7 @@ WHERE
   b.block_timestamp >= (
     SELECT
       MAX(
-        block_timestamp
+        block_timestamp - INTERVAL '1 HOUR'
       )
     FROM
       {{ this }}

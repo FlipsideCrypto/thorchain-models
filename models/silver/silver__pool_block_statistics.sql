@@ -41,7 +41,7 @@ WITH pool_depth AS (
 AND b.block_timestamp :: DATE >= (
   SELECT
     MAX(
-      DAY
+      DAY - INTERVAL '2 DAYS' --counteract clock skew
     )
   FROM
     {{ this }}
@@ -78,7 +78,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -109,7 +109,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -141,7 +141,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -178,7 +178,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -226,7 +226,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -277,7 +277,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -309,7 +309,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -339,7 +339,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -367,7 +367,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -396,7 +396,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -427,7 +427,7 @@ stake_umc AS (
 AND b.block_timestamp :: DATE >= (
   SELECT
     MAX(
-      DAY
+      DAY - INTERVAL '2 DAYS' --counteract clock skew
     )
   FROM
     {{ this }}
@@ -458,7 +458,7 @@ WHERE
 AND b.block_timestamp :: DATE >= (
   SELECT
     MAX(
-      DAY
+      DAY - INTERVAL '2 DAYS' --counteract clock skew
     )
   FROM
     {{ this }}

@@ -58,7 +58,7 @@ WHERE
   DAY >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}

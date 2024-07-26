@@ -27,7 +27,7 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
@@ -87,7 +87,7 @@ AND
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}

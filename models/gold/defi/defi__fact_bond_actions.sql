@@ -63,7 +63,7 @@ SELECT
   SYSDATE() AS modified_timestamp
 FROM
   bond_events be
-  LEFT JOIN {{ ref('core__dim_block') }}
+  JOIN {{ ref('core__dim_block') }}
   b
   ON be.block_timestamp = b.timestamp
   LEFT JOIN block_prices p
@@ -73,7 +73,7 @@ WHERE
   b.block_timestamp >= (
     SELECT
       MAX(
-        block_timestamp
+        block_timestamp - INTERVAL '1 HOUR'
       )
     FROM
       {{ this }}

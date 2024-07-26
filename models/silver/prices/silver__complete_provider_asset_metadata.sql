@@ -29,7 +29,7 @@ WHERE
     modified_timestamp >= (
         SELECT
             MAX(
-                modified_timestamp
+                modified_timestamp - INTERVAL '1 HOUR'
             )
         FROM
             {{ this }}

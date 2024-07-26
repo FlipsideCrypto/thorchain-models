@@ -38,7 +38,7 @@ SELECT
   SYSDATE() AS modified_timestamp
 FROM
   base A
-  LEFT JOIN {{ ref('core__dim_block') }}
+  JOIN {{ ref('core__dim_block') }}
   b
   ON A.block_timestamp = b.timestamp
 {% if is_incremental() %}
@@ -46,7 +46,7 @@ WHERE
   b.block_timestamp >= (
     SELECT
       MAX(
-        block_timestamp
+        block_timestamp - INTERVAL '1 HOUR'
       )
     FROM
       {{ this }}
