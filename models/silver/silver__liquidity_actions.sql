@@ -2,7 +2,7 @@
   materialized = 'incremental',
   unique_key = '_unique_key',
   incremental_strategy = 'merge',
-  cluster_by = ['_inserted_timestamp::DATE']
+  cluster_by = ['block_timestamp::DATE']
 ) }}
 
 WITH stakes AS (
@@ -22,18 +22,6 @@ WITH stakes AS (
     _inserted_timestamp
   FROM
     {{ ref('silver__stake_events') }}
-
-{% if is_incremental() %}
-WHERE
-  _INSERTED_TIMESTAMP :: DATE >= (
-    SELECT
-      MAX(
-        _INSERTED_TIMESTAMP
-      )
-    FROM
-      {{ this }}
-  ) - INTERVAL '4 HOURS'
-{% endif %}
 ),
 unstakes AS (
   SELECT
@@ -52,18 +40,6 @@ unstakes AS (
     _inserted_timestamp
   FROM
     {{ ref('silver__withdraw_events') }}
-
-{% if is_incremental() %}
-WHERE
-  _INSERTED_TIMESTAMP :: DATE >= (
-    SELECT
-      MAX(
-        _INSERTED_TIMESTAMP
-      )
-    FROM
-      {{ this }}
-  ) - INTERVAL '4 HOURS'
-{% endif %}
 )
 SELECT
   b.block_timestamp,
@@ -118,6 +94,19 @@ FROM
   p
   ON b.height = p.block_id
   AND se.pool_name = p.pool_name
+
+{% if is_incremental() %}
+WHERE
+  b.block_timestamp >= (
+    SELECT
+      MAX(
+        block_timestamp - INTERVAL '1 HOUR'
+      )
+    FROM
+      {{ this }}
+  ) 
+{% endif %}
+
 UNION
 SELECT
   b.block_timestamp,
@@ -178,3 +167,14 @@ FROM
   p
   ON b.height = p.block_id
   AND ue.pool_name = p.pool_name
+{% if is_incremental() %}
+WHERE
+  b.block_timestamp >= (
+    SELECT
+      MAX(
+        block_timestamp - INTERVAL '1 HOUR'
+      )
+    FROM
+      {{ this }}
+  ) 
+{% endif %}

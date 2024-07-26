@@ -3,6 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_new_node_events_id',
   incremental_strategy = 'merge',
+  incremental_predicates = ['DBT_INTERNAL_DEST.block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'], 
   cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -15,26 +16,6 @@ WITH base AS (
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__new_node_events') }}
-
-{% if is_incremental() %}
-WHERE
-  _inserted_timestamp >= (
-    SELECT
-      MAX(
-        _inserted_timestamp
-      )
-    FROM
-      {{ this }}
-  ) - INTERVAL '4 HOURS'
-  OR node_address IN (
-    SELECT
-      node_address
-    FROM
-      {{ this }}
-    WHERE
-      dim_block_id = '-1'
-  )
-{% endif %}
 )
 SELECT
   {{ dbt_utils.generate_surrogate_key(
@@ -52,6 +33,25 @@ SELECT
   SYSDATE() AS modified_timestamp
 FROM
   base A
-  LEFT JOIN {{ ref('core__dim_block') }}
+  JOIN {{ ref('core__dim_block') }}
   b
   ON A.block_timestamp = b.timestamp
+{% if is_incremental() %}
+WHERE
+  b.block_timestamp >= (
+    SELECT
+      MAX(
+        block_timestamp - INTERVAL '1 HOUR'
+      )
+    FROM
+      {{ this }}
+  ) 
+  OR node_address IN (
+    SELECT
+      node_address
+    FROM
+      {{ this }}
+    WHERE
+      dim_block_id = '-1'
+  )
+{% endif %}

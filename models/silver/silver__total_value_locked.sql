@@ -27,11 +27,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY,
@@ -87,11 +87,11 @@ AND
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 ),
 total_pool_depth_max AS (

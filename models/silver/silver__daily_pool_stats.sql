@@ -1,7 +1,9 @@
 {{ config(
   materialized = 'incremental',
   unique_key = "_unique_key",
-  incremental_strategy = 'merge'
+  incremental_strategy = 'merge',
+  cluster_by = ['block_timestamp::DATE'],
+  incremental_predicates = ['DBT_INTERNAL_DEST.day >= (select min(day) from ' ~ generate_tmp_view_name(this) ~ ')']
 ) }}
 
 WITH daily_rune_price AS (
@@ -20,11 +22,11 @@ WHERE
   block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   pool_name,
@@ -52,11 +54,11 @@ WHERE
   pbf.day >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 SELECT
@@ -167,9 +169,9 @@ WHERE
   pbs.day >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}

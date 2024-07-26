@@ -3,6 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_liquidity_actions_id',
   incremental_strategy = 'merge',
+  incremental_predicates = ['DBT_INTERNAL_DEST.block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'], 
   cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -31,18 +32,6 @@ WITH base AS (
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__liquidity_actions') }}
-
-{% if is_incremental() %}
-WHERE
-  _inserted_timestamp >= (
-    SELECT
-      MAX(
-        _inserted_timestamp
-      )
-    FROM
-      {{ this }}
-  ) - INTERVAL '48 HOURS'
-{% endif %}
 )
 SELECT
   {{ dbt_utils.generate_surrogate_key(
@@ -76,6 +65,17 @@ SELECT
   SYSDATE() AS modified_timestamp
 FROM
   base A
-  LEFT JOIN {{ ref('core__dim_block') }}
+  JOIN {{ ref('core__dim_block') }}
   b
   ON A.block_id = b.block_id
+{% if is_incremental() %}
+WHERE
+  b.block_timestamp >= (
+    SELECT
+      MAX(
+        block_timestamp - INTERVAL '1 HOUR'
+      )
+    FROM
+      {{ this }}
+  ) 
+{% endif %}

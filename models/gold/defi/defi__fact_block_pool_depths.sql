@@ -3,6 +3,7 @@
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
   unique_key = 'fact_pool_depths_id',
   incremental_strategy = 'merge',
+  incremental_predicates = ['DBT_INTERNAL_DEST.block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'],
   cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -17,26 +18,6 @@ WITH base AS (
     _inserted_timestamp
   FROM
     {{ ref('silver__block_pool_depths') }}
-
-{% if is_incremental() %}
-WHERE
-  _inserted_timestamp >= (
-    SELECT
-      MAX(
-        _inserted_timestamp
-      )
-    FROM
-      {{ this }}
-  ) - INTERVAL '72 HOURS'
-  OR pool_name IN (
-    SELECT
-      pool_name
-    FROM
-      {{ this }}
-    WHERE
-      dim_block_id = '-1'
-  )
-{% endif %}
 )
 SELECT
   {{ dbt_utils.generate_surrogate_key(
@@ -57,6 +38,25 @@ SELECT
   SYSDATE() AS modified_timestamp
 FROM
   base A
-  LEFT JOIN {{ ref('core__dim_block') }}
+  JOIN {{ ref('core__dim_block') }}
   b
   ON A.block_timestamp = b.timestamp
+{% if is_incremental() %}
+WHERE
+  b.block_timestamp >= (
+    SELECT
+      MAX(
+        block_timestamp - INTERVAL '1 HOUR'
+      )
+    FROM
+      {{ this }}
+  ) 
+  OR pool_name IN (
+    SELECT
+      pool_name
+    FROM
+      {{ this }}
+    WHERE
+      dim_block_id = '-1'
+  )
+{% endif %}

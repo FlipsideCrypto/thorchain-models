@@ -2,6 +2,7 @@
   materialized = 'incremental',
   unique_key = '_unique_key',
   incremental_strategy = 'merge',
+  incremental_predicates = ['DBT_INTERNAL_DEST.DAY >= (select min(DAY) from ' ~ generate_tmp_view_name(this) ~ ')'], 
   cluster_by = ['day']
 ) }}
 
@@ -40,11 +41,11 @@ WITH pool_depth AS (
 AND b.block_timestamp :: DATE >= (
   SELECT
     MAX(
-      DAY
+      DAY - INTERVAL '2 DAYS' --counteract clock skew
     )
   FROM
     {{ this }}
-) - INTERVAL '48 HOURS'
+) 
 {% endif %}
 )
 WHERE
@@ -77,11 +78,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 WHERE
@@ -108,11 +109,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY,
@@ -140,11 +141,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY,
@@ -177,11 +178,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 GROUP BY
@@ -225,11 +226,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 GROUP BY
@@ -276,11 +277,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 )
 GROUP BY
@@ -308,11 +309,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   pool_name,
@@ -338,11 +339,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   pool_name,
@@ -366,11 +367,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   pool_name,
@@ -395,11 +396,11 @@ WHERE
   b.block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   from_address,
@@ -426,11 +427,11 @@ stake_umc AS (
 AND b.block_timestamp :: DATE >= (
   SELECT
     MAX(
-      DAY
+      DAY - INTERVAL '2 DAYS' --counteract clock skew
     )
   FROM
     {{ this }}
-) - INTERVAL '48 HOURS'
+) 
 {% endif %}
 GROUP BY
   rune_address,
@@ -457,11 +458,11 @@ WHERE
 AND b.block_timestamp :: DATE >= (
   SELECT
     MAX(
-      DAY
+      DAY - INTERVAL '2 DAYS' --counteract clock skew
     )
   FROM
     {{ this }}
-) - INTERVAL '48 HOURS'
+) 
 {% endif %}
 GROUP BY
   asset_address,

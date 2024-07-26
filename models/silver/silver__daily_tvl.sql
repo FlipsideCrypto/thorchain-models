@@ -1,7 +1,9 @@
 {{ config(
   materialized = 'incremental',
   unique_key = "day",
-  incremental_strategy = 'merge'
+  incremental_strategy = 'merge',
+  cluster_by = ['day'],
+  incremental_predicates = ['DBT_INTERNAL_DEST.day >= (select min(day) from ' ~ generate_tmp_view_name(this) ~ ')']
 ) }}
 
 WITH max_daily_block AS (
@@ -20,11 +22,11 @@ WHERE
   block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY
@@ -45,11 +47,11 @@ WHERE
   block_timestamp :: DATE >= (
     SELECT
       MAX(
-        DAY
+        DAY - INTERVAL '2 DAYS' --counteract clock skew
       )
     FROM
       {{ this }}
-  ) - INTERVAL '48 HOURS'
+  ) 
 {% endif %}
 GROUP BY
   DAY,

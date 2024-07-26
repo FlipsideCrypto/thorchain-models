@@ -2,7 +2,7 @@
   materialized = 'incremental',
   unique_key = "_unique_key",
   incremental_strategy = 'merge',
-  cluster_by = ['_inserted_timestamp::DATE']
+  cluster_by = ['block_timestamp::DATE']
 ) }}
 
 WITH block_prices AS (
@@ -43,12 +43,12 @@ FROM
 
 {% if is_incremental() %}
 WHERE
-  se._INSERTED_TIMESTAMP :: DATE >= (
+  b.block_timestamp >= (
     SELECT
       MAX(
-        _INSERTED_TIMESTAMP
+        block_timestamp - INTERVAL '1 HOUR'
       )
     FROM
       {{ this }}
-  ) - INTERVAL '4 HOURS'
+  ) 
 {% endif %}

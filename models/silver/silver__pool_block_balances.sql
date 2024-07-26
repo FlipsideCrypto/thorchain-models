@@ -2,7 +2,7 @@
   materialized = 'incremental',
   unique_key = '_unique_key',
   incremental_strategy = 'merge',
-  cluster_by = ['_inserted_timestamp::DATE']
+  cluster_by = ['block_timestamp::DATE']
 ) }}
 
 SELECT
@@ -34,12 +34,12 @@ FROM
 
 {% if is_incremental() %}
 WHERE
-  bpd._inserted_timestamp >= (
+  b.block_timestamp >= (
     SELECT
       MAX(
-        _inserted_timestamp
+        block_timestamp - INTERVAL '1 HOUR'
       )
     FROM
       {{ this }}
-  ) - INTERVAL '4 HOURS'
+  ) 
 {% endif %}
