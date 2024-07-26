@@ -95,7 +95,7 @@ FROM
 {% if is_incremental() %}
 WHERE
   (
-    b.block_timestamp :: DATE >= (
+    b.block_timestamp >= (
       SELECT
         MAX(
           block_timestamp - INTERVAL '1 HOUR'

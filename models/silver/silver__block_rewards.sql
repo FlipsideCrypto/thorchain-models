@@ -2,7 +2,7 @@
   materialized = 'incremental',
   unique_key = 'day',
   incremental_strategy = 'merge',
-  cluster_by = ['block_timestamp::DATE']
+  cluster_by = ['day']
 ) }}
 
 WITH all_block_id AS (
