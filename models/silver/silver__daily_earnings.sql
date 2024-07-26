@@ -2,7 +2,7 @@
   materialized = 'incremental',
   unique_key = 'day',
   incremental_strategy = 'merge',
-  cluster_by = ['block_timestamp::DATE']
+  cluster_by = ['day']
 ) }}
 
 WITH max_daily_block AS (
@@ -27,7 +27,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) 
+  )
 {% endif %}
 GROUP BY
   DAY
@@ -52,7 +52,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) 
+  )
 {% endif %}
 GROUP BY
   DAY,
@@ -105,5 +105,5 @@ WHERE
       )
     FROM
       {{ this }}
-  ) 
+  )
 {% endif %}
