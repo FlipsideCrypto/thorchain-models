@@ -27,7 +27,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) 
+  )
 {% endif %}
 GROUP BY
   DAY
@@ -52,7 +52,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) 
+  )
 {% endif %}
 GROUP BY
   DAY,
@@ -105,5 +105,5 @@ WHERE
       )
     FROM
       {{ this }}
-  ) 
+  )
 {% endif %}
