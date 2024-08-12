@@ -128,6 +128,7 @@ SELECT
     0
   ) AS total_value_pooled,
   COALESCE(SUM(total_value_bonded) over (
+PARTITION BY COALESCE(total_value_bonded_tbl.day, total_value_pooled_tbl.day)
 ORDER BY
   COALESCE(total_value_bonded_tbl.day, total_value_pooled_tbl.day) ASC), 0) AS total_value_bonded,
   COALESCE(
