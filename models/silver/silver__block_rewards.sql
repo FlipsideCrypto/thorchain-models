@@ -12,20 +12,6 @@ WITH all_block_id AS (
     MAX(_inserted_timestamp) AS _inserted_timestamp
   FROM
     {{ ref('silver__block_pool_depths') }}
-
-{% if is_incremental() %}
-WHERE
-  TO_TIMESTAMP(
-    block_timestamp / 1000000000
-  ) :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   block_timestamp
 ),
@@ -41,20 +27,6 @@ avg_nodes_tbl AS (
     ) AS delta
   FROM
     {{ ref('silver__update_node_account_status_events') }}
-
-{% if is_incremental() %}
-WHERE
-  TO_TIMESTAMP(
-    block_timestamp / 1000000000
-  ) :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   block_timestamp
 ),
