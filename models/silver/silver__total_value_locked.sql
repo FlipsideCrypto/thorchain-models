@@ -21,18 +21,6 @@ WITH bond_type_day AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   DAY,
   bond_type
@@ -81,18 +69,6 @@ total_pool_depth AS (
     b
     ON A.block_timestamp = b.timestamp
   WHERE LOWER(pool_name) NOT LIKE 'thor.%'
-
-{% if is_incremental() %}
-AND
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 ),
 total_pool_depth_max AS (
   SELECT
@@ -128,7 +104,6 @@ SELECT
     0
   ) AS total_value_pooled,
   COALESCE(SUM(total_value_bonded) over (
-PARTITION BY COALESCE(total_value_bonded_tbl.day, total_value_pooled_tbl.day)
 ORDER BY
   COALESCE(total_value_bonded_tbl.day, total_value_pooled_tbl.day) ASC), 0) AS total_value_bonded,
   COALESCE(
