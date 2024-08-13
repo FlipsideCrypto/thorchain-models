@@ -1,7 +1,5 @@
 {{ config(
-  materialized = 'incremental',
-  unique_key = 'day',
-  incremental_strategy = 'merge',
+  materialized = 'table',
   cluster_by = ['day']
 ) }}
 
@@ -12,20 +10,6 @@ WITH all_block_id AS (
     MAX(_inserted_timestamp) AS _inserted_timestamp
   FROM
     {{ ref('silver__block_pool_depths') }}
-
-{% if is_incremental() %}
-WHERE
-  TO_TIMESTAMP(
-    block_timestamp / 1000000000
-  ) :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   block_timestamp
 ),
@@ -41,20 +25,6 @@ avg_nodes_tbl AS (
     ) AS delta
   FROM
     {{ ref('silver__update_node_account_status_events') }}
-
-{% if is_incremental() %}
-WHERE
-  TO_TIMESTAMP(
-    block_timestamp / 1000000000
-  ) :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   block_timestamp
 ),
@@ -98,18 +68,6 @@ liquidity_fee_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   1
 ),
@@ -124,18 +82,6 @@ bond_earnings_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   DAY
 ),
@@ -150,18 +96,6 @@ total_pool_rewards_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   DAY
 )

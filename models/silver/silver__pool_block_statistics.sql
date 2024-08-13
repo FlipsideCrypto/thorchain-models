@@ -1,8 +1,5 @@
 {{ config(
-  materialized = 'incremental',
-  unique_key = '_unique_key',
-  incremental_strategy = 'merge',
-  incremental_predicates = ['DBT_INTERNAL_DEST.DAY >= (select min(DAY) from ' ~ generate_tmp_view_name(this) ~ ')'], 
+  materialized = 'table',
   cluster_by = ['day']
 ) }}
 
@@ -36,17 +33,6 @@ WITH pool_depth AS (
         ON A.block_timestamp = b.timestamp
       WHERE
         asset_e8 > 0
-
-{% if is_incremental() %}
-AND b.block_timestamp :: DATE >= (
-  SELECT
-    MAX(
-      DAY - INTERVAL '2 DAYS' --counteract clock skew
-    )
-  FROM
-    {{ this }}
-) 
-{% endif %}
 )
 WHERE
   block_id = max_block_id
@@ -72,18 +58,6 @@ pool_status AS (
         JOIN {{ ref('silver__block_log') }}
         b
         ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 )
 WHERE
   rn = 1
@@ -103,18 +77,6 @@ add_liquidity_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   DAY,
   pool_name
@@ -135,18 +97,6 @@ withdraw_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   DAY,
   pool_name
@@ -172,18 +122,6 @@ swap_total_tbl AS (
         JOIN {{ ref('silver__block_log') }}
         b
         ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 )
 GROUP BY
   DAY,
@@ -220,18 +158,6 @@ swap_to_asset_tbl AS (
         JOIN {{ ref('silver__block_log') }}
         b
         ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 )
 GROUP BY
   to_tune_asset,
@@ -271,18 +197,6 @@ swap_to_rune_tbl AS (
         JOIN {{ ref('silver__block_log') }}
         b
         ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 )
 GROUP BY
   to_tune_asset,
@@ -303,18 +217,6 @@ average_slip_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   pool_name,
   DAY
@@ -333,18 +235,6 @@ unique_swapper_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   pool_name,
   DAY
@@ -361,18 +251,6 @@ stake_amount AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   pool_name,
   DAY
@@ -390,18 +268,6 @@ unstake_umc AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   from_address,
   pool_name,
@@ -422,17 +288,6 @@ stake_umc AS (
     ON A.block_timestamp = b.timestamp
   WHERE
     rune_address IS NOT NULL
-
-{% if is_incremental() %}
-AND b.block_timestamp :: DATE >= (
-  SELECT
-    MAX(
-      DAY - INTERVAL '2 DAYS' --counteract clock skew
-    )
-  FROM
-    {{ this }}
-) 
-{% endif %}
 GROUP BY
   rune_address,
   pool_name,
@@ -453,17 +308,6 @@ FROM
 WHERE
   asset_address IS NOT NULL
   AND rune_address IS NULL
-
-{% if is_incremental() %}
-AND b.block_timestamp :: DATE >= (
-  SELECT
-    MAX(
-      DAY - INTERVAL '2 DAYS' --counteract clock skew
-    )
-  FROM
-    {{ this }}
-) 
-{% endif %}
 GROUP BY
   asset_address,
   pool_name,
