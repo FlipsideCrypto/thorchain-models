@@ -1,7 +1,5 @@
 {{ config(
-  materialized = 'incremental',
-  unique_key = 'day',
-  incremental_strategy = 'merge',
+  materialized = 'table',
   cluster_by = ['day']
 ) }}
 
@@ -70,18 +68,6 @@ liquidity_fee_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   1
 ),
@@ -96,18 +82,6 @@ bond_earnings_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   DAY
 ),
@@ -122,18 +96,6 @@ total_pool_rewards_tbl AS (
     JOIN {{ ref('silver__block_log') }}
     b
     ON A.block_timestamp = b.timestamp
-
-{% if is_incremental() %}
-WHERE
-  b.block_timestamp :: DATE >= (
-    SELECT
-      MAX(
-        DAY - INTERVAL '2 DAYS' --counteract clock skew
-      )
-    FROM
-      {{ this }}
-  ) 
-{% endif %}
 GROUP BY
   DAY
 )

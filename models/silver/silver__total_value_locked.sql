@@ -1,7 +1,5 @@
 {{ config(
-  materialized = 'incremental',
-  unique_key = "day",
-  incremental_strategy = 'merge',
+  materialized = 'table',
   cluster_by = ['day']
 ) }}
 
