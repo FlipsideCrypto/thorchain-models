@@ -33,6 +33,7 @@ sources:
       - name: midgard_rewards_event_entries
       - name: midgard_rewards_events
       - name: midgard_rune_pool_deposit_events
+      - name: midgard_rune_pool_withdraw_events
       - name: midgard_rune_price
       - name: midgard_scheduled_outbound_events
       - name: midgard_send_messages
