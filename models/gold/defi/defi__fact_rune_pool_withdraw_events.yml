@@ -3,7 +3,7 @@ models:
   - name: defi__fact_rune_pool_withdraw_events
     description: "Fact table containing all rune pool withdraw events"
     columns:
-      - name: FACT_RUNE_POOL_DEPOSIT_EVENTS_ID
+      - name: FACT_RUNE_POOL_WITHDRAW_EVENTS_ID
         description: "{{ doc('sk') }}"
         tests:
           - dbt_expectations.expect_column_to_exist
@@ -48,7 +48,7 @@ models:
         description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
-          column_name: FACT_RUNE_POOL_DEPOSIT_EVENTS_ID
+          column_name: FACT_RUNE_POOL_WITHDRAW_EVENTS_ID
       - dbt_constraints.foreign_key:
           fk_column_name: DIM_BLOCK_ID
           pk_table_name: ref('core__dim_block')
