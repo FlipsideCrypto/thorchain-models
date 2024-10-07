@@ -19,7 +19,7 @@ FROM
   {{ ref('bronze__trade_account_deposit_events') }}
 QUALIFY(
   ROW_NUMBER() OVER (
-    PARTITION BY tx_id
+    PARTITION BY tx_id, event_id
     ORDER BY __HEVO__LOADED_AT DESC
   ) = 1
 )
