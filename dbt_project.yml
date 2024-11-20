@@ -38,6 +38,8 @@ models:
   +persist_docs:
     relation: true
     columns: true
+  thorchain_models:
+    +pre-hook: '{{ fsc_utils.set_query_tag() }}'
 
 vars:
   "dbt_date:time_zone": GMT
@@ -47,6 +49,11 @@ vars:
   EXTERNAL_FUNCTION_URI: '{{ var("config")[target.name]["EXTERNAL_FUNCTION_URI"] if var("config")[target.name] else var("config")["dev"]["EXTERNAL_FUNCTION_URI"] }}'
   ROLES: |
       ["INTERNAL_DEV"]
+  core_folders: [
+    'silver',
+    'gold',
+    'bronze'
+  ]
 
   dbt_constraints_sources_enabled: true
 
