@@ -45,6 +45,7 @@ There is more information on how to use dbt docs in the last section of this doc
 - [defi.fact_daily_pool_stats](#!/model/model.thorchain_models.defi__fact_daily_pool_stats)
 - [defi.fact_daily_tvl](#!/model/model.thorchain_models.defi__fact_daily_tvl)
 - [defi.fact_errata_events](#!/model/model.thorchain_models.defi__fact_errata_events)
+- [defi.fact_failed_deposit_messages](#!/model/model.thorchain_models.defi__fact_failed_deposit_messages)
 - [defi.fact_fee_events](#!/model/model.thorchain_models.defi__fact_fee_events)
 - [defi.fact_gas_events](#!/model/model.thorchain_models.defi__fact_gas_events)
 - [defi.fact_inactive_vault_events](#!/model/model.thorchain_models.defi__fact_inactive_vault_events)
