@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: thorchain_midgard
     database: HEVO
-    schema: THORCHAIN_MIDGARD_2_24_2_new
+    schema: THORCHAIN_MIDGARD_2_25_1
     tables:
       - name: midgard_active_vault_events
       - name: midgard_add_events
@@ -14,6 +14,7 @@ sources:
       - name: bond_events_pk_count
       - name: midgard_constants
       - name: midgard_errata_events
+      - name: midgard_failed_deposit_messages
       - name: midgard_fee_events
       - name: fee_events_pk_count
       - name: midgard_gas_events
