@@ -3,4 +3,4 @@
 ) }}
 
 SELECT
-    '2.25.1' AS midgard_version
+    '2.26.0' AS midgard_version
