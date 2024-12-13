@@ -12,6 +12,7 @@ models:
           - RUNE_TX_ID
           - RUNE_ADDRESS
           - BLOCK_TIMESTAMP
+          - EVENT_ID
     columns:
       - name: POOL_NAME
         tests:

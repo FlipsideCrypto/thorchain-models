@@ -22,6 +22,6 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__stake_events') }}
-  qualify(ROW_NUMBER() over(PARTITION BY pool, rune_tx, asset_chain, stake_units, rune_addr, asset_tx, asset_addr, block_timestamp
+  qualify(ROW_NUMBER() over(PARTITION BY event_id, pool, rune_tx, asset_chain, stake_units, rune_addr, asset_tx, asset_addr, block_timestamp
 ORDER BY
   __HEVO__INGESTED_AT DESC)) = 1
