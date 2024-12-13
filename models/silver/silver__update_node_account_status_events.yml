@@ -8,6 +8,7 @@ models:
             - CURRENT_STATUS
             - FORMER_STATUS
             - BLOCK_TIMESTAMP
+            - EVENT_ID
     columns:
       - name: NODE_ADDRESS
         tests:

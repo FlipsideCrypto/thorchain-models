@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: thorchain_midgard
     database: HEVO
-    schema: THORCHAIN_MIDGARD_2_26_0
+    schema: THORCHAIN_MIDGARD_2_28_1
     tables:
       - name: midgard_active_vault_events
       - name: midgard_add_events

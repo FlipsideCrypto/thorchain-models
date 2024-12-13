@@ -488,6 +488,7 @@ joined AS (
     total_stake * synth_depth / ((asset_depth * 2) - synth_depth) AS synth_units,
     CASE
       WHEN total_stake = 0 THEN 0
+      WHEN depth_product < 0 THEN 0
       ELSE SQRT(depth_product) / (
         total_stake + synth_units
       )
