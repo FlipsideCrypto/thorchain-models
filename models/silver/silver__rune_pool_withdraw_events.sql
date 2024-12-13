@@ -22,3 +22,9 @@ FROM
   {{ ref(
     'bronze__rune_pool_withdraw_events'
   ) }}
+QUALIFY(
+  ROW_NUMBER() OVER (
+    PARTITION BY event_id
+    ORDER BY __HEVO__LOADED_AT DESC
+  ) = 1
+)

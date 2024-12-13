@@ -12,6 +12,7 @@ models:
             - MEMO
             - POOL_NAME
             - BLOCK_TIMESTAMP
+            - EVENT_ID
     columns:
       - name: TX_ID
         tests:

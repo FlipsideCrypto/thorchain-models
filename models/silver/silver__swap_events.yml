@@ -20,6 +20,7 @@ models:
             - LIQ_FEE_IN_RUNE_E8
             - _DIRECTION
             - BLOCK_TIMESTAMP
+            - EVENT_ID
     columns:
       - name: TX_ID
         tests:

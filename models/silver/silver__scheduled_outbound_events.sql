@@ -26,3 +26,9 @@ SELECT
   ) AS _INSERTED_TIMESTAMP
 FROM
   {{ ref('bronze__scheduled_outbound_events') }}
+QUALIFY(
+  ROW_NUMBER() OVER (
+    PARTITION BY event_id
+    ORDER BY __HEVO__LOADED_AT DESC
+  ) = 1
+)
