@@ -17,6 +17,6 @@ FROM
 QUALIFY(
   ROW_NUMBER() OVER (
     PARTITION BY block_timestamp
-    ORDER BY __HEVO__LOADED_AT DESC
+    ORDER BY rune_price_e8 DESC
   ) = 1
 )
