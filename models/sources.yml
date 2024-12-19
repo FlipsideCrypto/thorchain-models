@@ -3,10 +3,11 @@ version: 2
 sources:
   - name: thorchain_midgard
     database: HEVO
-    schema: THORCHAIN_MIDGARD_2_28_1
+    schema: THORCHAIN_MIDGARD_2_29_0_DRAB
     tables:
       - name: midgard_active_vault_events
       - name: midgard_add_events
+      - name: midgard_affiliate_fee_events
       - name: midgard_asgard_fund_yggdrasil_events
       - name: midgard_block_log
       - name: midgard_block_pool_depths
