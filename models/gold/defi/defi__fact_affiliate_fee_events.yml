@@ -1,0 +1,67 @@
+version: 2
+models:
+  - name: defi__fact_affiliate_fee_events
+    description: "Fact table containing all affiliate fee events that occur in the Thorchain network"
+    columns:
+      - name: FACT_AFFILIATE_FEE_EVENTS_ID
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+          - unique
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+        tests:
+          - not_null:
+              where: DIM_BLOCK_ID not in ('-1','-2')
+      - name: DIM_BLOCK_ID
+        description: "{{ doc('block_id') }}"
+        tests:
+          - negative_one:
+              where: _inserted_timestamp <  (CURRENT_TIMESTAMP - INTERVAL '8 HOURS')
+      - name: TX_ID
+        description: "{{ doc('tx_id') }}"
+        tests:
+          - not_null
+      - name: FEE_AMT
+        description: "The affiliate fee amount collected for this transaction"
+        tests:
+          - not_null
+      - name: GROSS_AMT
+        description: "The total transaction amount before fees"
+        tests:
+          - not_null
+      - name: FEE_BPS
+        description: "The fee basis points charged for this affiliate transaction"
+        tests:
+          - not_null
+      - name: MEMO
+        description: "{{ doc('memo') }}"
+        tests:
+          - not_null
+      - name: ASSET
+        description: "{{ doc('asset') }}"
+        tests:
+          - not_null
+      - name: RUNE_ADDRESS
+        description: "The RUNE address associated with the affiliate"
+        tests:
+          - not_null
+      - name: THORNAME
+        description: "The THORName identifier for the affiliate"
+        tests:
+          - not_null
+      - name: EVENT_ID
+        description: "Unique identifier for the affiliate fee event"
+        tests:
+          - not_null
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'  
+    tests:
+      - dbt_constraints.primary_key:
+          column_name: FACT_AFFILIATE_FEE_EVENTS_ID
+      - dbt_constraints.foreign_key:
+          fk_column_name: DIM_BLOCK_ID
+          pk_table_name: ref('core__dim_block')
+          pk_column_name: DIM_BLOCK_ID
