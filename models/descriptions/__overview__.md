@@ -36,6 +36,7 @@ There is more information on how to use dbt docs in the last section of this doc
 
 - [defi.fact_active_vault_events](#!/model/model.thorchain_models.defi__fact_active_vault_events)
 - [defi.fact_add_events](#!/model/model.thorchain_models.defi__fact_add_events)
+- [defi.fact_affiliate_fee_events](#!/model/model.thorchain_models.defi__fact_affiliate_fee_events)
 - [defi.fact_asgard_fund_yggdrasil_events](#!/model/model.thorchain_models.defi__fact_asgard_fund_yggdrasil_events)
 - [defi.fact_block_pool_depths](#!/model/model.thorchain_models.defi__fact_block_pool_depths)
 - [defi.fact_block_rewards](#!/model/model.thorchain_models.defi__fact_block_rewards)
