@@ -1,4 +1,4 @@
-name: dbt_docs_update
+name: docs_update
 
 on:
   push:
@@ -20,11 +20,52 @@ env:
 
 concurrency:
   group: ${{ github.workflow }}
-  cancel-in-progress: true
-
-
 
 jobs:
-  called_workflow_template:
-    uses: FlipsideCrypto/analytics-workflow-templates/.github/workflows/dbt_docs_updates.yml@main
-    secrets: inherit 
+  run_dbt_jobs:
+    runs-on: ubuntu-latest
+    environment: 
+      name: workflow_prod
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "${{ vars.PYTHON_VERSION }}"
+          cache: "pip"
+
+      - name: install dependencies
+        run: |
+          pip install -r requirements.txt
+          dbt deps
+
+      - name: checkout docs branch
+        run: |
+          git checkout -B docs origin/main
+      - name: generate dbt docs
+        run: |
+          dbt ls -t prod
+          dbt docs generate --no-compile -t prod
+
+      - name: move files to docs directory
+        run: |
+          mkdir -p ./docs
+          cp target/{catalog.json,manifest.json,index.html} docs/
+      - name: clean up target directory
+        run: dbt clean
+
+      - name: check for changes
+        run: git status
+
+      - name: stage changed files
+        run: git add .
+
+      - name: commit changed files
+        run: |
+          git config user.email "abc@eclipse"
+          git config user.name "github-actions"
+          git commit -am "Auto-update docs"
+      - name: push changes to docs
+        run: |
+          git push -f --set-upstream origin docs
