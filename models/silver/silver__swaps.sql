@@ -83,21 +83,23 @@ SELECT
   END AS native_to_address,
   to_address AS to_pool_address,
   CASE
-    WHEN COALESCE(SPLIT(memo, ':') [4], '') = '' THEN NULL
-    ELSE SPLIT(
-      memo,
-      ':'
-    ) [4] :: STRING
+    WHEN COALESCE(SPLIT(memo, ':')[4], '') = '' THEN NULL
+    WHEN CONTAINS(SPLIT(memo, ':')[4], '/') THEN 
+      SPLIT(SPLIT(memo, ':')[4], '/')[0]
+    ELSE SPLIT(memo, ':')[4]::STRING
   END AS affiliate_address,
   TRY_CAST(
     CASE
-      WHEN COALESCE(SPLIT(memo, ':') [5], '') = '' THEN NULL
-      ELSE SPLIT(
-        memo,
-        ':'
-      ) [5]
-    END :: STRING AS INT
+      WHEN COALESCE(SPLIT(memo, ':')[5], '') = '' THEN NULL
+      WHEN CONTAINS(SPLIT(memo, ':')[5], '/') THEN 
+        SPLIT(SPLIT(memo, ':')[5], '/')[0]
+      ELSE SPLIT(memo, ':')[5]
+    END::STRING AS INT
   ) AS affiliate_fee_basis_points,
+  SPLIT(COALESCE(SPLIT(SPLIT(memo, '|')[0], ':')[4], ''), '/') AS affiliate_addresses_array,
+  ARRAY_AGG(
+    TRY_CAST(TRIM(f.value) AS INTEGER)
+  ) WITHIN GROUP (ORDER BY f.index) AS affiliate_fee_basis_points_array,
   from_asset,
   to_asset,
   COALESCE(from_e8 / pow(10, 8), 0) AS from_amount,
@@ -152,7 +154,9 @@ SELECT
   _INSERTED_TIMESTAMP
 FROM
   swaps se
-  LEFT JOIN {{ ref('silver__prices') }}
-  p
-  ON se.block_id = p.block_id
-  AND se.pool_name = p.pool_name
+  LEFT JOIN {{ ref('silver__prices') }} p
+    ON se.block_id = p.block_id
+    AND se.pool_name = p.pool_name,
+  LATERAL FLATTEN(input => SPLIT(COALESCE(SPLIT(memo, ':')[5], ''), '/')) f
+GROUP BY
+  ALL
