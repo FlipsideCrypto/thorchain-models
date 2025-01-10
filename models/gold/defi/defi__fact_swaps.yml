@@ -31,9 +31,13 @@ models:
       - name: TO_POOL_ADDRESS
         description: "The pool address that processes the swap"
       - name: AFFILIATE_ADDRESS
-        description: ""
+        description: "The affiliate address that is receiving the affiliate fee (redundant with array)"
       - name: AFFILIATE_FEE_BASIS_POINTS
-        description: ""
+        description: "The affiliate fee basis points that is received by the affiliate address (redundant with array)"
+      - name: AFFILIATE_ADDRESSES_ARRAY
+        description: "The affiliate addresses that are receiving the affiliate fee"
+      - name: AFFILIATE_FEE_BASIS_POINTS_ARRAY
+        description: "The affiliate fee basis points that are received by the affiliate addresses"
       - name: FROM_ASSET
         description: "Initial asset to swap"
       - name: TO_ASSET
