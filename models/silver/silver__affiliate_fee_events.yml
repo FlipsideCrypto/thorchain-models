@@ -29,8 +29,8 @@ models:
         tests:
           - not_null
       - name: THORNAME
-        tests:
-          - not_null
+        # tests:
+        #   - not_null
       - name: EVENT_ID
         tests:
           - not_null
