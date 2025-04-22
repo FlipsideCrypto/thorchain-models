@@ -31,6 +31,7 @@ There is more information on how to use dbt docs in the last section of this doc
 - [core.fact_transfers](#!/model/model.thorchain_models.core__fact_transfers)
 - [core.fact_tss_keygen_failure_events](#!/model/model.thorchain_models.core__fact_tss_keygen_failure_events)
 - [core.fact_tss_keygen_success_events](#!/model/model.thorchain_models.core__fact_tss_keygen_success_events)
+- [core.fact_wasm_contracts_events](#!/model/model.thorchain_models.core__fact_wasm_contracts_events)
 
 ### Defi Schema
 
@@ -67,6 +68,10 @@ There is more information on how to use dbt docs in the last section of this doc
 - [defi.fact_rewards_events](#!/model/model.thorchain_models.defi__fact_rewards_events)
 - [defi.fact_rune_pool_deposit_events](#!/model/model.thorchain_models.defi__fact_rune_pool_deposit_events)
 - [defi.fact_rune_pool_withdraw_events](#!/model/model.thorchain_models.defi__fact_rune_pool_withdraw_events)
+- [defi.fact_scheduled_outbound_events](#!/model/model.thorchain_models.defi__fact_scheduled_outbound_events)
+- [defi.fact_secure_asset_deposit_events](#!/model/model.thorchain_models.defi__fact_secure_asset_deposit_events)
+- [defi.fact_secure_asset_withdraw_events](#!/model/model.thorchain_models.defi__fact_secure_asset_withdraw_events)
+- [defi.fact_send_messages](#!/model/model.thorchain_models.defi__fact_send_messages)
 - [defi.fact_stake_events](#!/model/model.thorchain_models.defi__fact_stake_events)
 - [defi.fact_streamling_swap_details_events](#!/model/model.thorchain_models.defi__fact_streamling_swap_details_events)
 - [defi.fact_swaps](#!/model/model.thorchain_models.defi__fact_swaps)
@@ -84,6 +89,7 @@ There is more information on how to use dbt docs in the last section of this doc
 - [gov.fact_new_node_events](#!/model/model.thorchain_models.gov__fact_new_node_events)
 - [gov.fact_set_ip_address_events](#!/model/model.thorchain_models.gov__fact_set_ip_address_events)
 - [gov.fact_set_node_keys_events](#!/model/model.thorchain_models.gov__fact_set_node_keys_events)
+- [gov.fact_set_node_mimir_events](#!/model/model.thorchain_models.gov__fact_set_node_mimir_events)
 - [gov.fact_set_version_events](#!/model/model.thorchain_models.gov__fact_set_version_events)
 - [gov.fact_slash_amounts](#!/model/model.thorchain_models.gov__fact_slash_amounts)
 - [gov.fact_slash_points](#!/model/model.thorchain_models.gov__fact_slash_points)

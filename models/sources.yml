@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: thorchain_midgard
     database: HEVO
-    schema: THORCHAIN_MIDGARD_2_29_0_DRAB
+    schema: THORCHAIN_MIDGARD_METAL
     tables:
       - name: midgard_active_vault_events
       - name: midgard_add_events
@@ -20,7 +20,6 @@ sources:
       - name: midgard_inactive_vault_events
       - name: midgard_loan_open_events
       - name: midgard_loan_repayment_events
-      - name: midgard_message_events
       - name: midgard_mint_burn_events
       - name: midgard_network_version_events
       - name: midgard_new_node_events
@@ -36,10 +35,13 @@ sources:
       - name: midgard_rune_pool_withdraw_events
       - name: midgard_rune_price
       - name: midgard_scheduled_outbound_events
+      - name: midgard_secure_asset_deposit_events
+      - name: midgard_secure_asset_withdraw_events
       - name: midgard_send_messages
       - name: midgard_set_ip_address_events
       - name: midgard_set_mimir_events
       - name: midgard_set_node_keys_events
+      - name: midgard_set_node_mimir_events
       - name: midgard_set_version_events
       - name: midgard_slash_events
       - name: midgard_slash_points_events
@@ -56,6 +58,7 @@ sources:
       - name: midgard_unstake_events
       - name: midgard_update_node_account_status_events
       - name: midgard_validator_request_leave_events
+      - name: midgard_wasm_contracts_events
       - name: midgard_withdraw_events
   - name: crosschain
     database: "{{ 'crosschain' if target.database == 'THORCHAIN' else 'crosschain_dev' }}"
