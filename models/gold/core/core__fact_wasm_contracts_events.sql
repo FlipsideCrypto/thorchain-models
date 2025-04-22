@@ -23,7 +23,7 @@ WITH base AS (
 )
 SELECT
   {{ dbt_utils.generate_surrogate_key(
-    ['a.tx_id','a.event_id','a.contract_address']
+    ['a.tx_id','a.event_id','a.contract_address', 'a.sender']
   ) }} AS fact_wasm_contracts_events_id,
   b.block_timestamp,
   COALESCE(

@@ -79,6 +79,8 @@ There is more information on how to use dbt docs in the last section of this doc
 - [defi.fact_switch_events](#!/model/model.thorchain_models.defi__fact_switch_events)
 - [defi.fact_total_block_rewards](#!/model/model.thorchain_models.defi__fact_total_block_rewards)
 - [defi.fact_total_value_locked](#!/model/model.thorchain_models.defi__fact_total_value_locked)
+- [defi.fact_trade_account_deposit_events](#!/model/model.thorchain_models.defi__fact_trade_account_deposit_events)
+- [defi.fact_trade_account_withdraw_events](#!/model/model.thorchain_models.defi__fact_trade_account_withdraw_events)
 - [defi.fact_unstake_events](#!/model/model.thorchain_models.defi__fact_unstake_events)
 - [defi.fact_update_node_account_status_events](#!/model/model.thorchain_models.defi__fact_update_node_account_status_events)
 - [defi.fact_upgrades](#!/model/model.thorchain_models.defi__fact_upgrades)

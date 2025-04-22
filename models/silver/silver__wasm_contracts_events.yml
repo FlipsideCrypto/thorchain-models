@@ -1,0 +1,33 @@
+version: 2
+models:
+  - name: silver__wasm_contracts_events
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - TX_ID
+            - EVENT_ID
+            - CONTRACT_ADDRESS
+            - SENDER
+    columns:
+      - name: TX_ID
+        tests:
+          - not_null
+      - name: CONTRACT_ADDRESS
+        tests:
+          - not_null
+      - name: CONTRACT_TYPE
+        tests:
+          - not_null
+      - name: SENDER
+      - name: ATTRIBUTES
+        tests:
+          - not_null
+      - name: EVENT_ID
+        tests:
+          - not_null
+      - name: BLOCK_TIMESTAMP
+        tests:
+          - not_null
+      - name: _INSERTED_TIMESTAMP
+        tests:
+          - not_null
