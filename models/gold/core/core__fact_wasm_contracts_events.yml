@@ -1,0 +1,27 @@
+version: 2
+models:
+  - name: core__fact_wasm_contracts_events
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - TX_ID
+            - EVENT_ID
+            - CONTRACT_ADDRESS
+            - SENDER
+    columns:
+      - name: TX_ID
+        description: "{{ doc('tx_id') }}"
+      - name: CONTRACT_ADDRESS
+        description: "Address of the wasm contract"
+      - name: CONTRACT_TYPE
+        description: "Type of the wasm contract"
+      - name: SENDER
+        description: "Address of the sender"
+      - name: ATTRIBUTES
+        description: "Attributes of the wasm contract"
+      - name: EVENT_ID
+        description: ""
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+      - name: _INSERTED_TIMESTAMP
+        description: "{{ doc('inserted_timestamp') }}"

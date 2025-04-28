@@ -1,7 +1,7 @@
 {{ config(
   materialized = 'incremental',
-  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM, SWAPS' }} },
-  unique_key = 'fact_streamling_swap_details_events_id',
+  meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM' }} },
+  unique_key = 'fact_set_node_mimir_events_id',
   incremental_strategy = 'merge',
   incremental_predicates = ['DBT_INTERNAL_DEST.block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'], 
   cluster_by = ['block_timestamp::DATE']
@@ -10,50 +10,29 @@
 WITH base AS (
 
   SELECT
-    tx_id,
-    INTERVAL,
-    quantity,
-    COUNT,
-    last_height,
-    deposit_asset,
-    deposit_e8,
-    in_asset,
-    in_e8,
-    out_asset,
-    out_e8,
-    failed_swaps,
-    failed_swap_reasons AS failed_swaps_reasons,
+    address,
+    key,
+    value,
     event_id,
     block_timestamp,
-    failed_swap_reasons,
     _INSERTED_TIMESTAMP
   FROM
-    {{ ref('silver__streamling_swap_details_events') }}
+    {{ ref('silver__set_node_mimir_events') }}
 )
 SELECT
   {{ dbt_utils.generate_surrogate_key(
-    ['a.event_id']
-  ) }} AS fact_streamling_swap_details_events_id,
+    ['a.event_id','a.address','a.key']
+  ) }} AS fact_set_node_mimir_events_id,
   b.block_timestamp,
   COALESCE(
     b.dim_block_id,
     '-1'
   ) AS dim_block_id,
-  tx_id,
-  INTERVAL,
-  quantity,
-  COUNT,
-  last_height,
-  deposit_asset,
-  deposit_e8,
-  in_asset,
-  in_e8,
-  out_asset,
-  out_e8,
-  failed_swaps,
-  failed_swaps_reasons,
+  address,
+  key,
+  value,
   event_id,
-  A._inserted_timestamp,
+  A._INSERTED_TIMESTAMP,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,
   SYSDATE() AS modified_timestamp
