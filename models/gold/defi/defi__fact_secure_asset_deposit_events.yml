@@ -3,7 +3,7 @@ models:
   - name: defi__fact_secure_asset_deposit_events
     description: "Fact table that shows secure asset deposits"
     columns:
-      - name: FACT_SECURE_ASSET_DEPOSITS_EVENTS_ID
+      - name: FACT_SECURE_ASSET_DEPOSIT_EVENTS_ID
         description: "{{ doc('sk') }}"
         tests:
           - not_null
@@ -29,7 +29,7 @@ models:
         description: '{{ doc("modified_timestamp") }}'  
     tests:
       - dbt_constraints.primary_key:
-          column_name: FACT_SECURE_ASSET_DEPOSITS_EVENTS_ID
+          column_name: FACT_SECURE_ASSET_DEPOSIT_EVENTS_ID
       - dbt_constraints.foreign_key:
           fk_column_name: DIM_BLOCK_ID
           pk_table_name: ref('core__dim_block')

@@ -53,7 +53,6 @@ SELECT
   failed_swaps,
   failed_swaps_reasons,
   event_id,
-  failed_swap_reasons,
   A._inserted_timestamp,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

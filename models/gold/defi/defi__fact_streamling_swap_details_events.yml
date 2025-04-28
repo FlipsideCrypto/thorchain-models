@@ -42,8 +42,6 @@ models:
         description: "the out amount of the swap"
       - name: failed_swaps
         description: "the count of failed swaps"
-      - name: failed_swaps_reasons
-        description: "DEPRECATING SOON! the reason of failed swaps"
       - name: event_id
         description: ""
       - name: failed_swap_reasons
