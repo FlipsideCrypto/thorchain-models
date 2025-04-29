@@ -1,6 +1,7 @@
 version: 2
 models:
   - name: core__fact_wasm_contracts_events
+    description: "Fact table shows wasm contract events"
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
