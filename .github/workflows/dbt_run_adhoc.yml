@@ -46,10 +46,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: workflow_${{ inputs.environment }}
-    strategy:
-      matrix:
-        command: ${{fromJson(inputs.dbt_command)}}
-
     steps:
       - uses: actions/checkout@v3
 
