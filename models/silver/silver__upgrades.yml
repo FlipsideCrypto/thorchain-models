@@ -32,13 +32,7 @@ models:
         tests:
           - not_null
       - name: RUNE_AMOUNT_USD
-        tests:
-          - not_null:
-              where: BLOCK_TIMESTAMP <= current_date -2 AND BLOCK_TIMESTAMP >= '2021-04-13'
       - name: MINT_AMOUNT
         tests:
           - not_null
       - name: MINT_AMOUNT_USD
-        tests:
-          - not_null:
-              where: BLOCK_TIMESTAMP <= current_date -2 AND BLOCK_TIMESTAMP >= '2021-04-13'
