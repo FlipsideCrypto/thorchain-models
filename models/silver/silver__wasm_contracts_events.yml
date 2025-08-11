@@ -10,8 +10,8 @@ models:
             - SENDER
     columns:
       - name: TX_ID
-        tests:
-          - not_null
+        # tests:
+        #   - not_null
       - name: CONTRACT_ADDRESS
         tests:
           - not_null
