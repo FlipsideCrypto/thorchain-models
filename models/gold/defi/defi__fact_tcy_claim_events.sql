@@ -57,4 +57,12 @@ WHERE
     FROM
       {{ this }}
   ) 
+  OR event_id IN (
+    SELECT
+      event_id
+    FROM
+      {{ this }}
+    WHERE
+      dim_block_id = '-1'
+  )
 {% endif %}
