@@ -1,0 +1,31 @@
+version: 2
+models:
+  - name: silver__instantiate_events
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - EVENT_ID
+            - CONTRACT_ADDRESS
+            - BLOCK_TIMESTAMP
+    columns:
+      - name: TX_ID
+      - name: CONTRACT_ADDRESS
+        tests:
+          - not_null
+      - name: ADMIN_ADDRESS
+      - name: CODE_ID
+        tests:
+          - not_null
+      - name: SENDER
+      - name: LABEL
+      - name: MSG
+      - name: FUNDS
+      - name: EVENT_ID
+        tests:
+          - not_null
+      - name: BLOCK_TIMESTAMP
+        tests:
+          - not_null
+      - name: _INSERTED_TIMESTAMP
+        tests:
+          - not_null

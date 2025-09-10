@@ -18,6 +18,7 @@ sources:
       - name: midgard_fee_events
       - name: midgard_gas_events
       - name: midgard_inactive_vault_events
+      - name: midgard_instantiate_events
       - name: midgard_loan_open_events
       - name: midgard_loan_repayment_events
       - name: midgard_mint_burn_events
@@ -49,6 +50,10 @@ sources:
       - name: midgard_streaming_swap_details_events
       - name: midgard_swap_events
       - name: midgard_switch_events
+      - name: midgard_tcy_claim_events
+      - name: midgard_tcy_distribution_events
+      - name: midgard_tcy_stake_events
+      - name: midgard_tcy_unstake_events
       - name: midgard_thorname_change_events
       - name: midgard_trade_account_deposit_events
       - name: midgard_trade_account_withdraw_events
