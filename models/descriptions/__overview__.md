@@ -24,7 +24,6 @@ There is more information on how to use dbt docs in the last section of this doc
 - [core.dim_block](#!/model/model.thorchain_models.core__dim_block)
 - [core.dim_labels](#!/model/model.thorchain_models.core__dim_labels)
 - [core.dim_midgard](#!/model/model.thorchain_models.core__dim_midgard)
-- [core.fact_instantiate_events](#!/model/model.thorchain_models.core__fact_instantiate_events)
 - [core.fact_network_version_events](#!/model/model.thorchain_models.core__fact_network_version_events)
 - [core.fact_set_mimir_events](#!/model/model.thorchain_models.core__fact_set_mimir_events)
 - [core.fact_thorname_change_events](#!/model/model.thorchain_models.core__fact_thorname_change_events)
@@ -78,10 +77,6 @@ There is more information on how to use dbt docs in the last section of this doc
 - [defi.fact_swaps](#!/model/model.thorchain_models.defi__fact_swaps)
 - [defi.fact_swaps_events](#!/model/model.thorchain_models.defi__fact_swaps_events)
 - [defi.fact_switch_events](#!/model/model.thorchain_models.defi__fact_switch_events)
-- [defi.fact_tcy_claim_events](#!/model/model.thorchain_models.defi__fact_tcy_claim_events)
-- [defi.fact_tcy_distribution_events](#!/model/model.thorchain_models.defi__fact_tcy_distribution_events)
-- [defi.fact_tcy_stake_events](#!/model/model.thorchain_models.defi__fact_tcy_stake_events)
-- [defi.fact_tcy_unstake_events](#!/model/model.thorchain_models.defi__fact_tcy_unstake_events)
 - [defi.fact_total_block_rewards](#!/model/model.thorchain_models.defi__fact_total_block_rewards)
 - [defi.fact_total_value_locked](#!/model/model.thorchain_models.defi__fact_total_value_locked)
 - [defi.fact_trade_account_deposit_events](#!/model/model.thorchain_models.defi__fact_trade_account_deposit_events)
@@ -121,7 +116,6 @@ While THORchain models are built a few different ways, they are organized into t
 The dimension tables are sourced from a variety of on-chain and off-chain sources.
 
 Convenience views (denoted ez\_) are a combination of different fact and dimension tables. These views are built to make it easier to query the data.
-
 
 ## **Using dbt docs**
 
