@@ -8,7 +8,7 @@
 WITH block_prices AS (
 
   SELECT
-    AVG(rune_usd) AS rune_usd,
+    COALESCE(AVG(rune_usd), 0) AS rune_usd,
     block_id
   FROM
     {{ ref('silver__prices') }}
@@ -21,7 +21,7 @@ fin AS (
     b.height AS block_id,
     ree.pool_name AS reward_entity,
     COALESCE(rune_e8 / pow(10, 8), 0) AS rune_amount,
-    COALESCE(rune_e8 / pow(10, 8) * rune_usd, 0) AS rune_amount_usd,
+    COALESCE(rune_e8 / pow(10, 8) * COALESCE(rune_usd, 0), 0) AS rune_amount_usd,
     concat_ws(
       '-',
       b.height,
@@ -76,7 +76,7 @@ SELECT
   bond_e8 / pow(
     10,
     8
-  ) * rune_usd AS rune_amount_usd,
+  ) * COALESCE(rune_usd, 0) AS rune_amount_usd,
   concat_ws(
     '-',
     b.height,
