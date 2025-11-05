@@ -96,7 +96,7 @@ WHERE
   b.block_timestamp >= (
     SELECT
       MAX(
-        block_timestamp - INTERVAL '1 HOUR'
+        block_timestamp - INTERVAL '7 days'
       )
     FROM
       {{ this }}

@@ -23,14 +23,14 @@ WITH blocks AS (
 
 {% if is_incremental() %}
 WHERE
- b.block_timestamp >= (
+  b.block_timestamp >= (
     SELECT
       MAX(
-        block_timestamp - INTERVAL '1 HOUR'
+        block_timestamp - INTERVAL '7 days'
       )
     FROM
       {{ this }}
-  ) 
+  )
 {% endif %}
 ),
 price AS (
@@ -53,7 +53,7 @@ WHERE
       )
     FROM
       {{ this }}
-  ) 
+  )
 {% endif %}
 ) -- step 3 calculate the prices of assets by pool, in terms of tokens per tokens
 -- and in USD for both tokens

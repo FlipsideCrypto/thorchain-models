@@ -35,7 +35,7 @@ WHERE
     block_id >= (
         SELECT
             MAX(
-                block_id - 600 --about 1 hour
+                block_id - 6000 --about 10 hours
             )
         FROM
             {{ this }}
