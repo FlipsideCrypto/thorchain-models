@@ -9,6 +9,7 @@ SELECT
   burn_asset,
   burn_e8,
   mint_e8,
+  mint_asset,
   event_id,
   block_timestamp,
   DATEADD(

@@ -33,6 +33,12 @@ SELECT
   block_timestamp,
   event_id,
   _TX_TYPE,
+  bond_addr,
+  node_addr,
+  signer_addr,
+  __HEVO__DATABASE_NAME,
+  __HEVO__SCHEMA_NAME,
+  __HEVO__INGESTED_AT,
   __HEVO__LOADED_AT
 FROM
   {{ source(

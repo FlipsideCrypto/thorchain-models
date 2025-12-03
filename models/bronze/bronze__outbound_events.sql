@@ -11,6 +11,7 @@ SELECT
   asset_e8,
   memo,
   in_tx,
+  internal,
   event_id,
   block_timestamp,
   _TX_TYPE,

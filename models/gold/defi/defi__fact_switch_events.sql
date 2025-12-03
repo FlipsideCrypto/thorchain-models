@@ -16,6 +16,7 @@ WITH base AS (
     burn_asset,
     burn_e8,
     mint_e8,
+    mint_asset,
     event_id,
     block_timestamp,
     _INSERTED_TIMESTAMP
@@ -37,6 +38,7 @@ SELECT
   burn_asset,
   burn_e8,
   mint_e8,
+  mint_asset,
   A._INSERTED_TIMESTAMP,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

@@ -1,0 +1,65 @@
+version: 2
+models:
+  - name: defi__fact_limit_swap_events
+    description: "Fact table that shows limit swap events - orders placed with specific price limits"
+    columns:
+      - name: FACT_LIMIT_SWAP_EVENTS_ID
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+          - unique
+      - name: BLOCK_TIMESTAMP
+        description: "{{ doc('block_timestamp') }}"
+        tests:
+          - not_null:
+              where: DIM_BLOCK_ID not in ('-1','-2')
+      - name: DIM_BLOCK_ID
+        description: "FK to DIM_BLOCK table"
+        tests:
+          - negative_one:
+              where: _inserted_timestamp <  (CURRENT_TIMESTAMP - INTERVAL '8 HOURS')
+      - name: TX_ID
+        description: "{{ doc('tx_id') }}"
+        tests:
+          - not_null
+      - name: FROM_ADDRESS
+        description: "The user address that initiates the limit swap"
+        tests:
+          - not_null
+      - name: TO_ADDRESS
+        description: "The destination address for the swap"
+        tests:
+          - not_null
+      - name: FROM_ASSET
+        description: "The asset being swapped from"
+        tests:
+          - not_null
+      - name: FROM_E8
+        description: "The amount being swapped from (divide by 10^8 to get the decimal amount)"
+        tests:
+          - not_null
+      - name: TO_ASSET
+        description: "The asset being swapped to"
+        tests:
+          - not_null
+      - name: TO_E8
+        description: "The amount being swapped to (divide by 10^8 to get the decimal amount)"
+        tests:
+          - not_null
+      - name: MEMO
+        description: "The transaction memo"
+      - name: EVENT_ID
+        description: "Unique identifier for the event"
+        tests:
+          - not_null
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}'
+    tests:
+      - dbt_constraints.primary_key:
+          column_name: FACT_LIMIT_SWAP_EVENTS_ID
+      - dbt_constraints.foreign_key:
+          fk_column_name: DIM_BLOCK_ID
+          pk_table_name: ref('core__dim_block')
+          pk_column_name: DIM_BLOCK_ID

@@ -1,9 +1,9 @@
 {{ config(
   materialized = 'incremental',
   meta ={ 'database_tags':{ 'table':{ 'PURPOSE': 'DEX, AMM, SWAPS' }} },
-  unique_key = 'fact_swap_events_id',
+  unique_key = 'fact_limit_swap_events_id',
   incremental_strategy = 'merge',
-  incremental_predicates = ['DBT_INTERNAL_DEST.block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'], 
+  incremental_predicates = ['DBT_INTERNAL_DEST.block_timestamp >= (select min(block_timestamp) from ' ~ generate_tmp_view_name(this) ~ ')'],
   cluster_by = ['block_timestamp::DATE']
 ) }}
 
@@ -11,7 +11,6 @@ WITH base AS (
 
   SELECT
     tx_id,
-    blockchain,
     from_address,
     to_address,
     from_asset,
@@ -19,33 +18,22 @@ WITH base AS (
     to_asset,
     to_e8,
     memo,
-    pool_name,
-    to_e8_min,
-    swap_slip_bp,
-    liq_fee_e8,
-    liq_fee_in_rune_e8,
-    _DIRECTION,
     event_id,
     block_timestamp,
-    streaming_count,
-    streaming_quantity,
-    _STREAMING,
-    _TX_TYPE,
     _INSERTED_TIMESTAMP
   FROM
-    {{ ref('silver__swap_events') }}
+    {{ ref('silver__limit_swap_events') }}
 )
 SELECT
   {{ dbt_utils.generate_surrogate_key(
-    ['a.event_id','a.tx_id','a.blockchain','a.to_address','a.from_address','a.from_asset','a.from_e8','a.to_asset','a.to_e8','a.memo','a.pool_name','a._direction']
-  ) }} AS fact_swap_events_id,
+    ['a.event_id','a.tx_id','a.from_address','a.to_address','a.from_asset','a.from_e8','a.to_asset','a.to_e8','a.block_timestamp']
+  ) }} AS fact_limit_swap_events_id,
   b.block_timestamp,
   COALESCE(
     b.dim_block_id,
     '-1'
   ) AS dim_block_id,
   tx_id,
-  blockchain,
   from_address,
   to_address,
   from_asset,
@@ -53,17 +41,7 @@ SELECT
   to_asset,
   to_e8,
   memo,
-  pool_name,
-  to_e8_min,
-  swap_slip_bp,
-  liq_fee_e8,
-  liq_fee_in_rune_e8,
-  _DIRECTION,
   event_id,
-  streaming_count,
-  streaming_quantity,
-  _STREAMING,
-  _TX_TYPE,
   A._inserted_timestamp,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,
@@ -78,9 +56,9 @@ WHERE
   b.block_timestamp >= (
     SELECT
       MAX(
-        block_timestamp - INTERVAL '7 days'
+        block_timestamp - INTERVAL '1 HOUR'
       )
     FROM
       {{ this }}
-  ) 
+  )
 {% endif %}

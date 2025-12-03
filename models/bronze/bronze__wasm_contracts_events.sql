@@ -8,6 +8,8 @@ SELECT
   contract_type,
   sender,
   attributes,
+  funds,
+  msg,
   event_id,
   block_timestamp,
   __HEVO__DATABASE_NAME,

@@ -9,6 +9,8 @@ SELECT
   to_addr,
   memo,
   tx_id,
+  code,
+  raw_log,
   event_id,
   block_timestamp,
   __HEVO__DATABASE_NAME,

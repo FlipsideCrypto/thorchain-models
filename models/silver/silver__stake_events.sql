@@ -13,6 +13,7 @@ SELECT
   rune_addr AS rune_address,
   rune_e8,
   _ASSET_IN_RUNE_E8,
+  memo,
   event_id,
   block_timestamp,
   DATEADD(

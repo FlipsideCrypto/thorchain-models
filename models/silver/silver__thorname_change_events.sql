@@ -10,6 +10,9 @@ SELECT
   NAME,
   fund_amount_e8,
   registration_fee_e8,
+  memo,
+  sender,
+  tx_id,
   event_id,
   block_timestamp,
   DATEADD(
