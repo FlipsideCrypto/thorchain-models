@@ -15,6 +15,9 @@ SELECT
   event_id,
   block_timestamp,
   _TX_TYPE,
+  bond_addr AS bond_address,
+  node_addr AS node_address,
+  signer_addr AS signer_address,
   DATEADD(
     ms,
     __HEVO__LOADED_AT,

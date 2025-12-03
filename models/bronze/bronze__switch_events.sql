@@ -21,6 +21,7 @@ SELECT
   ) AS burn_asset,
   burn_e8,
   mint_e8,
+  mint_asset,
   block_timestamp,
   event_id,
   __HEVO__DATABASE_NAME,

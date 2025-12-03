@@ -22,6 +22,7 @@ SELECT
   block_timestamp,
   streaming_count,
   streaming_quantity,
+  _STREAMING,
   _TX_TYPE,
   DATEADD(
     ms,

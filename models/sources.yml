@@ -19,6 +19,7 @@ sources:
       - name: midgard_gas_events
       - name: midgard_inactive_vault_events
       - name: midgard_instantiate_events
+      - name: midgard_limit_swap_events
       - name: midgard_loan_open_events
       - name: midgard_loan_repayment_events
       - name: midgard_mint_burn_events
@@ -28,6 +29,7 @@ sources:
       - name: midgard_pending_liquidity_events
       - name: midgard_pool_balance_change_events
       - name: midgard_pool_events
+      - name: midgard_rebond_events
       - name: midgard_refund_events
       - name: midgard_reserve_events
       - name: midgard_rewards_event_entries

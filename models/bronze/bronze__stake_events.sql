@@ -13,6 +13,7 @@ SELECT
   rune_addr,
   rune_e8,
   _ASSET_IN_RUNE_E8,
+  memo,
   event_id,
   block_timestamp,
   __HEVO__DATABASE_NAME,

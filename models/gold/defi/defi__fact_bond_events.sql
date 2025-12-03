@@ -21,6 +21,9 @@ WITH base AS (
     e8,
     block_timestamp,
     _TX_TYPE,
+    bond_address,
+    node_address,
+    signer_address,
     _INSERTED_TIMESTAMP
   FROM
     {{ ref('silver__bond_events') }}
@@ -44,6 +47,9 @@ SELECT
   bond_type,
   e8,
   _TX_TYPE,
+  bond_address,
+  node_address,
+  signer_address,
   A._INSERTED_TIMESTAMP,
   '{{ invocation_id }}' AS _audit_run_id,
   SYSDATE() AS inserted_timestamp,

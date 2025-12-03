@@ -4,14 +4,12 @@
 
 SELECT
   tx_id,
-  fee_amt,
-  gross_amt,
-  fee_bps,
+  amount,
+  new_bond_address,
+  old_bond_address,
+  node_address,
   memo,
-  asset,
-  rune_address,
-  thorname,
-  _fee_amt_in_rune,
+  to_addr,
   event_id,
   block_timestamp,
   __HEVO__DATABASE_NAME,
@@ -21,5 +19,5 @@ SELECT
 FROM
   {{ source(
     'thorchain_midgard',
-    'midgard_affiliate_fee_events'
+    'midgard_rebond_events'
   ) }}
