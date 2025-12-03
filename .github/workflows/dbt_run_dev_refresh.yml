@@ -3,8 +3,8 @@ run-name: dbt_run_dev_refresh
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 1 * * *'
+  # schedule:
+  #   - cron: '0 1 * * *'
     
 env:
   DBT_PROFILES_DIR: ./
