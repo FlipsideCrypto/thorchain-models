@@ -76,7 +76,7 @@ jobs:
           git push -f --set-upstream origin docs
 
   refresh-dds-cache:
-    needs: [run_dbt_jobs_refresh]
+    needs: [run_dbt_jobs]
     if: success()
     uses: FlipsideCrypto/analytics-workflow-templates/.github/workflows/refresh_dds.yml@main
     with:
